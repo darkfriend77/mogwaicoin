@@ -101,9 +101,9 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
         consensus.nMajorityWindow = 1000;
-		// randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
+	      // randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
         consensus.BIP34Height = 0;
-        consensus.BIP34Hash = uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77");
+        consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes
@@ -150,9 +150,9 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1530000000, 231702, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518378444, 64329, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")); // TODO: add genesis hash
+        assert(consensus.hashGenesisBlock == uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")); // TODO: add genesis hash
         assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
 
 
@@ -187,11 +187,11 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")), // TODO: add checkpoints
-            0,    // * UNIX timestamp of last checkpoint block
-            0,    // * total number of transactions between genesis and last checkpoint
-                  //   (the tx=... number in the SetBestChain debug.log lines)
-            5000  // * estimated number of transactions per day after checkpoint
+            (  0, uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")),
+      1518378444,    // * UNIX timestamp of last checkpoint block
+               0,    // * total number of transactions between genesis and last checkpoint
+                     //   (the tx=... number in the SetBestChain debug.log lines)
+            5000     // * estimated number of transactions per day after checkpoint
         };
     }
 };
@@ -199,6 +199,16 @@ static CMainParams mainParams;
 
 /**
  * Testnet (v3)
+ * 
+ * 04ffff001d0104404279652d6279652c20576f6f6620576f6f662e20576520617265206d6f67776169732e20457870656374207573206f6e204a756e652032362028323031382921
+ * algorithm: neoscrypt
+ * merkle hash: 9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2
+ * pszTimestamp: Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!
+ * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3
+ * time: 1518378444
+ * bits: 0x1e0ffff0
+ * nonce: 64329
+ * genesis hash: 00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901
  */
 class CTestNetParams : public CChainParams {
 public:
@@ -221,8 +231,8 @@ public:
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
-        consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1");
+        consensus.BIP34Height = 0;
+        consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes
@@ -264,10 +274,10 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518378444, 64329, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x")); // TODO: add genesis hash
-        assert(genesis.hashMerkleRoot == uint256S("0x"));     // TODO: add merkle root
+        assert(consensus.hashGenesisBlock == uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901"));
+        assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -302,11 +312,11 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x")), // TODO: add checkpoints
-            0,    // * UNIX timestamp of last checkpoint block
-            0,    // * total number of transactions between genesis and last checkpoint
-                  //   (the tx=... number in the SetBestChain debug.log lines)
-            500   // * estimated number of transactions per day after checkpoint
+            (  0, uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")), // TODO: add checkpoints
+      1518378444,    // * UNIX timestamp of last checkpoint block
+               0,    // * total number of transactions between genesis and last checkpoint
+                     //   (the tx=... number in the SetBestChain debug.log lines)
+             500     // * estimated number of transactions per day after checkpoint
         };
 
     }
