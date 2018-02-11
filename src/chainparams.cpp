@@ -51,20 +51,20 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 /**
  * Mogwai Info:
- * 04ffff001d01043f4279652d6279652c20576f6f6620576f6f662e20576520617265206d6f67776169732e20457870656374207573206f6e204a756e6520323620283230313829
+ * 04ffff001d0104404279652d6279652c20576f6f6620576f6f662e20576520617265206d6f67776169732e20457870656374207573206f6e204a756e652032362028323031382921
  * algorithm: neoscrypt
- * merkle hash: 7d4aff196b7ebaf4162707fca6d093769aa6411f65944f7a9dd01d5b86a74fa2
- * pszTimestamp: Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)
- * pubkey: 04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f // Satoshi Nakamoto
+ * merkle hash: 9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2
+ * pszTimestamp: Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!
+ * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3 // Randall Peltzer
  * time: 1530000000 // GMT: Tuesday, 26. June 2018 08:00:00
  * bits: 0x1e0ffff0
  * nonce: 2841575
- * genesis hash: 00000203bf4edc0ee73b31fa13ca35ba4b293915f6ddefbecb1b557b9a43e3e9
+ * genesis hash: 00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77 
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)";
-    const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+    const char* pszTimestamp = "Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!";
+    const CScript genesisOutputScript = CScript() << ParseHex("047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
@@ -103,7 +103,7 @@ public:
         consensus.nMajorityWindow = 1000;
 		// randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
         consensus.BIP34Height = 0;
-        consensus.BIP34Hash = uint256S("0x00000203bf4edc0ee73b31fa13ca35ba4b293915f6ddefbecb1b557b9a43e3e9");
+        consensus.BIP34Hash = uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes
@@ -143,8 +143,8 @@ public:
         pchMessageStart[0] = 0x91; // mogwai message start gizmo caca
         pchMessageStart[1] = 0x70;
         pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xca;
-        vAlertPubKey = ParseHex("048240a8748a80a286b270ba126705ced4f2ce5a7847b3610ea3c06513150dade2a8512ed5ea86320824683fc0818f0ac019214973e677acd1244f6d0571fc5103"); // TODO: check
+        pchMessageStart[3] = 0xca;                 
+        vAlertPubKey = ParseHex("043902217c3fd0621353480a2f6c80d93929549a064a21089d60c75da6a1eae50b986466f1913083b2b504c8362ae8c735d936d50cc0e52ed0c633dbeaf350be49"); // randalls alert pub key
         nDefaultPort = 17777;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
         nDelayGetHeadersTime = 24 * 60 * 60;
@@ -152,8 +152,8 @@ public:
 
         genesis = CreateGenesisBlock(1530000000, 2841575, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000203bf4edc0ee73b31fa13ca35ba4b293915f6ddefbecb1b557b9a43e3e9")); // TODO: add genesis hash
-        assert(genesis.hashMerkleRoot == uint256S("0x7d4aff196b7ebaf4162707fca6d093769aa6411f65944f7a9dd01d5b86a74fa2"));     // TODO: add merkle root
+        assert(consensus.hashGenesisBlock == uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")); // TODO: add genesis hash
+        assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
 
 
         vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnss1.mogwaicoin.org")); // TODO: correct to real seeds
@@ -187,7 +187,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x00000203bf4edc0ee73b31fa13ca35ba4b293915f6ddefbecb1b557b9a43e3e9")), // TODO: add checkpoints
+            (  0, uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")), // TODO: add checkpoints
             0,    // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
                   //   (the tx=... number in the SetBestChain debug.log lines)
@@ -258,7 +258,7 @@ public:
         pchMessageStart[1] = 0x70;
         pchMessageStart[2] = 0xcb;
         pchMessageStart[3] = 0xcb;
-        vAlertPubKey = ParseHex("04517d8a699cb43d3938d7b24faaff7cda448ca4ea267723ba614784de661949bf632d6304316b244646dea079735b9a6fc4af804efb4752075b9fe2245e14e412");
+        vAlertPubKey = ParseHex("045b9703907569e67346e69d4784360970116c9fd6ddc56615e1dfc8bc63c876bf985007eca0248bb3031ef6e1e0ded215194066cf7a9060c27562787073fceac9"); // randalls testnet alert pub key
         nDefaultPort = 17888;
         nMaxTipAge = 0x7fffffff; // allow mining on top of old blocks for testnet
         nDelayGetHeadersTime = 24 * 60 * 60;
