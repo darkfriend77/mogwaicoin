@@ -58,7 +58,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3 // Randall Peltzer
  * time: 1530000000 // GMT: Tuesday, 26. June 2018 08:00:00
  * bits: 0x1e0ffff0
- * nonce: 2841575
+ * nonce: 231702
  * genesis hash: 00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77 
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
@@ -150,7 +150,7 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1530000000, 2841575, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1530000000, 231702, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")); // TODO: add genesis hash
         assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
