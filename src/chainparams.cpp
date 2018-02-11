@@ -140,7 +140,7 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 32-bit integer with any alignment.
          */
-        pchMessageStart[0] = 0xg1; // mogwai message start gizmo caca
+        pchMessageStart[0] = 0x91; // mogwai message start gizmo caca
         pchMessageStart[1] = 0x70;
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xca;
@@ -254,7 +254,7 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x0000000004f5aef732d572ff514af99a995702c92e4452c7af10858231668b1f"); // 37900
 
-        pchMessageStart[0] = 0xg2;
+        pchMessageStart[0] = 0x92;
         pchMessageStart[1] = 0x70;
         pchMessageStart[2] = 0xcb;
         pchMessageStart[3] = 0xcb;
@@ -364,7 +364,7 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x00");
 
-        pchMessageStart[0] = 0xg3;
+        pchMessageStart[0] = 0x93;
         pchMessageStart[1] = 0x70;
         pchMessageStart[2] = 0xcc;
         pchMessageStart[3] = 0xcc;
