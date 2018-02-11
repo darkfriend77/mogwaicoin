@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: dashd.service
-Upstart: dashd.conf
-OpenRC:  dashd.openrc
-         dashd.openrcconf
-CentOS:  dashd.init
-OS X:    org.dash.dashd.plist
+SystemD: mogwaid.service
+Upstart: mogwaid.conf
+OpenRC:  mogwaid.openrc
+         mogwaid.openrcconf
+CentOS:  mogwaid.init
+OS X:    org.mogwai.mogwaid.plist
 
 have been made available to assist packagers in creating node packages here.
 

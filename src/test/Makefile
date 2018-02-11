@@ -1,6 +1,6 @@
 all:
-	$(MAKE) -C .. dash_test
+	$(MAKE) -C .. mogwai_test
 clean:
-	$(MAKE) -C .. dash_test_clean
+	$(MAKE) -C .. mogwai_test_clean
 check:
-	$(MAKE) -C .. dash_test_check
+	$(MAKE) -C .. mogwai_test_check
