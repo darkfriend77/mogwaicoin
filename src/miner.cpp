@@ -423,6 +423,7 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                 // Busy-wait for the network to come online so we don't waste time mining
                 // on an obsolete chain. In regtest mode we expect to fly solo.
                 do {
+                    LogPrintf("PELTZER: dooing a silly shit here ...\n");
                     bool fvNodesEmpty = connman.GetNodeCount(CConnman::CONNECTIONS_ALL) == 0;
                     if (!fvNodesEmpty && !IsInitialBlockDownload() && masternodeSync.IsSynced())
                         break;
@@ -430,6 +431,7 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                 } while (true);
             }
 
+            LogPrintf("PELTZER: creating blocks here ...\n");
 
             //
             // Create new block
