@@ -383,11 +383,11 @@ public:
         nDefaultPort = 17999;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x")); // TODO: add genesis hash
-        assert(genesis.hashMerkleRoot == uint256S("0x"));     // TODO: add merkle root
-
+        genesis = CreateGenesisBlock(1518378444, 64329, 0x1e0ffff0, 1, 50 * COIN);
+        consensus.hashGenesisBlock = genesis.GetHash();   
+        assert(consensus.hashGenesisBlock == uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")); // TODO: add genesis hash
+        assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
+        
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
 
@@ -401,11 +401,11 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            (  0, uint256S("0x")), // TODO: add checkpoints
-            0,    // * UNIX timestamp of last checkpoint block
-            0,    // * total number of transactions between genesis and last checkpoint
-                  //   (the tx=... number in the SetBestChain debug.log lines)
-            0     // * estimated number of transactions per day after checkpoint
+            (  0, uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")), // TODO: need to calculate this
+      1518378444,    // * UNIX timestamp of last checkpoint block
+               0,    // * total number of transactions between genesis and last checkpoint
+                     //   (the tx=... number in the SetBestChain debug.log lines)
+               0     // * estimated number of transactions per day after checkpoint
 
         };
         // Regtest Mogwai addresses start with 'm'
