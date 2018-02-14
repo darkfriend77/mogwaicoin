@@ -46,10 +46,10 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case MOGWAI: return QString("MOGWAI");
-            case mMOGWAI: return QString("mMOGWAI");
-            case uMOGWAI: return QString::fromUtf8("μMOGWAI");
-            case duffs: return QString("duffs");
+            case MOGWAI: return QString("MOG");
+            case mMOGWAI: return QString("mMOG");
+            case uMOGWAI: return QString::fromUtf8("μMOG");
+            case duffs: return QString("puffs");
             default: return QString("???");
         }
     }
@@ -57,10 +57,10 @@ QString BitcoinUnits::name(int unit)
     {
         switch(unit)
         {
-            case MOGWAI: return QString("tMOGWAI");
-            case mMOGWAI: return QString("mtMOGWAI");
-            case uMOGWAI: return QString::fromUtf8("μtMOGWAI");
-            case duffs: return QString("tduffs");
+            case MOGWAI: return QString("tMOG");
+            case mMOGWAI: return QString("mtMOG");
+            case uMOGWAI: return QString::fromUtf8("μtMOG");
+            case duffs: return QString("tmpuffs");
             default: return QString("???");
         }
     }
