@@ -130,10 +130,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010"); // TODO: check if that is legit
+        consensus.nMinimumChainWork = uint256S("0x00"); // TODO: check if that is legit
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901"); // TODO: genesis block for now
+        consensus.defaultAssumeValid = uint256S("0x00"); // TODO: genesis block for now
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -259,10 +259,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100010"); // TODO: check if that is legit
+        consensus.nMinimumChainWork = uint256S("0x00"); // TODO: check if that is legit
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901"); // TODO: genesis block for now
+        consensus.defaultAssumeValid = uint256S("0x00"); // TODO: genesis block for now
 
         pchMessageStart[0] = 0x92;
         pchMessageStart[1] = 0x70;
