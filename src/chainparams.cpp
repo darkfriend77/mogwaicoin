@@ -279,8 +279,8 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net1.mogwaicoin.org")); // TODO: correct to real seeds
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net2.mogwaicoin.org")); // TODO: correct to real seeds
+        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net1.mogwaicoin.org")); // TODO: correct to real seeds
+        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net2.mogwaicoin.org")); // TODO: correct to real seeds
 
         // Testnet Mogwai addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
