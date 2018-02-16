@@ -6,7 +6,7 @@ Mogwai Core staging tree 0.12.2
 https://www.mogwai.org
 
 
-What is Mogwai?
+What is Mogwai??
 ----------------
 
 Mogwai is an experimental new digital currency that enables anonymous, instant
