@@ -156,7 +156,7 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
 
 
-        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnss1.mogwaicoin.org")); // TODO: correct to real seeds
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org"));
         //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnss2.mogwaicoin.org")); // TODO: correct to real seeds
 
         // Mogwai addresses start with 'M'
@@ -279,7 +279,7 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net1.mogwaicoin.org")); // TODO: correct to real seeds
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org"));
         //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net2.mogwaicoin.org")); // TODO: correct to real seeds
 
         // Testnet Mogwai addresses start with 't'
