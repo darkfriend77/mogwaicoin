@@ -157,7 +157,7 @@ public:
 
 
         vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org"));
-        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnss2.mogwaicoin.org")); // TODO: correct to real seeds
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dnsseed1.mogwaicoin.info"));
 
         // Mogwai addresses start with 'M'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
@@ -279,8 +279,8 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org"));
-        //vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "test-net2.mogwaicoin.org")); // TODO: correct to real seeds
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org")); // randall: correct to test net seeder later
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dnsseed1.mogwaicoin.info")); // randall: correct to test net seeder later
 
         // Testnet Mogwai addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
