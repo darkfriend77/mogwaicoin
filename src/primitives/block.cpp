@@ -10,12 +10,15 @@
 #include "utilstrencodings.h"
 #include "crypto/common.h"
 #include "crypto/neoscrypt.h"
+#include "util.h"
 
 uint256 CBlockHeader::GetHash() const
 {
         uint256 thash;
         unsigned int profile = 0x0;
+        LogPrint("gethash", "input: %s\n", &nVersion);
         neoscrypt((unsigned char *) &nVersion, (unsigned char *) &thash, profile);
+        LogPrint("gethash", "output: %s\n", &thash);
         return thash;
 
 }
