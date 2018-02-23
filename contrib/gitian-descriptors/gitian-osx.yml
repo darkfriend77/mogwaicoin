@@ -1,5 +1,5 @@
 ---
-name: "mogwai-osx-0.07"
+name: "mogwai-osx-0.12"
 enable_cache: true
 suites:
 - "trusty"

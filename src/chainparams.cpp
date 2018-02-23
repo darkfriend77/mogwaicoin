@@ -183,7 +183,8 @@ public:
 
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
-        strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
+        strSporkPubKey = "04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237a7bb899fdd";
+        //strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -306,7 +307,8 @@ public:
 
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
-        strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
+        strSporkPubKey = "04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237a7bb899fdd";
+        //strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
