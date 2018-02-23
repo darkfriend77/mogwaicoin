@@ -274,7 +274,7 @@ then
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit mogwai=${COMMIT} --url mogwai=${url} ../mogwai/contrib/gitian-descriptors/gitian-linux.yml
 	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../mogwai/contrib/gitian-descriptors/gitian-linux.yml
-	    mv build/out/mogwai-*.tar.gz build/out/src/mogwai-*.tar.gz ../mogwai/bin/${VERSION}
+	    mv build/out/mogwaicore-*.tar.gz build/out/src/mogwaicore-*.tar.gz ../mogwai/bin/${VERSION}
 	fi
 	# Windows
 	if [[ $windows = true ]]
@@ -284,8 +284,8 @@ then
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit mogwai=${COMMIT} --url mogwai=${url} ../mogwai/contrib/gitian-descriptors/gitian-win.yml
 	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../mogwai/contrib/gitian-descriptors/gitian-win.yml
-	    mv build/out/mogwai-*-win-unsigned.tar.gz inputs/mogwai-win-unsigned.tar.gz
-	    mv build/out/mogwai-*.zip build/out/mogwai-*.exe ../mogwai/bin/${VERSION}
+	    mv build/out/mogwaicore-*-win-unsigned.tar.gz inputs/mogwaicore-win-unsigned.tar.gz
+	    mv build/out/mogwaicore-*.zip build/out/mogwaicore-*.exe ../mogwai/bin/${VERSION}
 	fi
 	# Mac OSX
 	if [[ $osx = true ]]
@@ -295,14 +295,14 @@ then
 	    echo ""
 	    ./bin/gbuild -j ${proc} -m ${mem} --commit mogwai=${COMMIT} --url mogwai=${url} ../mogwai/contrib/gitian-descriptors/gitian-osx.yml
 	    ./bin/gsign -p $signProg --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../mogwai/contrib/gitian-descriptors/gitian-osx.yml
-	    mv build/out/mogwai-*-osx-unsigned.tar.gz inputs/mogwai-osx-unsigned.tar.gz
-	    mv build/out/mogwai-*.tar.gz build/out/mogwai-*.dmg ../mogwai/bin/${VERSION}
+	    mv build/out/mogwaicore-*-osx-unsigned.tar.gz inputs/mogwaicore-osx-unsigned.tar.gz
+	    mv build/out/mogwaicore-*.tar.gz build/out/mogwaicore-*.dmg ../mogwai/bin/${VERSION}
 	fi
 	popd
 
-  # Commit to gitian.sigs repo
   if [[ $commitFiles = true ]]
   then
+      # Commit to gitian.sigs repo
       echo ""
       echo "Committing ${VERSION} Unsigned Sigs"
       echo ""
@@ -311,8 +311,8 @@ then
       git add ${VERSION}-win-unsigned/${SIGNER}
       git add ${VERSION}-osx-unsigned/${SIGNER}
       git commit -a -m "Add ${VERSION} unsigned sigs for ${SIGNER}"
+      popd
   fi
-  popd
   
 fi
 
@@ -376,9 +376,9 @@ then
 	fi
 	popd
 
-  # Commit Sigs
   if [[ $commitFiles = true ]]
   then
+      # Commit Sigs
       pushd gitian.sigs
       echo ""
       echo "Committing ${VERSION} Signed Sigs"
@@ -386,7 +386,7 @@ then
       git add ${VERSION}-win-signed/${SIGNER}
       git add ${VERSION}-osx-signed/${SIGNER}
       git commit -a -m "Add ${VERSION} signed binary sigs for ${SIGNER}"
+      popd
   fi
-  popd
 
 fi
