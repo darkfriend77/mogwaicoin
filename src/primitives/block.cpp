@@ -16,9 +16,7 @@ uint256 CBlockHeader::GetHash() const
 {
         uint256 thash;
         unsigned int profile = 0x0;
-        LogPrint("randall", "input: %s\n", &nVersion);
         neoscrypt((unsigned char *) &nVersion, (unsigned char *) &thash, profile);
-        LogPrint("randall", "output: %s\n", &thash);
         return thash;
 
 }
