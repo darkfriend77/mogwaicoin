@@ -25,8 +25,8 @@ Build-Depends: debhelper,
  python
 Standards-Version: 3.9.2
 Homepage: https://www.mogwai.org/
-Vcs-Git: git://github.com/mogwaipay/mogwai.git
-Vcs-Browser: https://github.com/mogwaipay/mogwai
+Vcs-Git: git://github.com/mogwaicoin/mogwai.git
+Vcs-Browser: https://github.com/mogwaicoin/mogwai
 
 Package: mogwaid
 Architecture: any
