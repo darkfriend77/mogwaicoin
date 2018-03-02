@@ -85,6 +85,8 @@ public:
     CMainParams() {
         strNetworkID = "main";
 
+        consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.
+
         /** nSubsidyHalvingInterval:
          * This variable determines the	numbers of blocks after which the block reward will be halved.
          * It is later used in the function GetBlockValue in main.cpp to assign the reward to a block
@@ -113,8 +115,8 @@ public:
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes
+        consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day ... Randall 77 min?
+        consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes Randall root of 7 * 60 = ~159 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 15200;
@@ -164,8 +166,10 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));     // TODO: add merkle root
 
 
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org"));
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dnsseed1.mogwaicoin.info"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed1.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed2.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed3.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed4.mogwaicoin.org"));
 
         // Mogwai addresses start with 'M'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,50);
@@ -223,6 +227,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
+        consensus.nPremineReward = 10000;
         consensus.nSubsidyHalvingInterval = 210240;
         consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 4030;
@@ -338,6 +343,7 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
+        consensus.nPremineReward = 0;
         consensus.nSubsidyHalvingInterval = 150;
         consensus.nMasternodePaymentsStartBlock = 240;
         consensus.nMasternodePaymentsIncreaseBlock = 350;
