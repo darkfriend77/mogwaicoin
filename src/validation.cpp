@@ -1236,7 +1236,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     // PremineReward
     if (nPrevHeight == 0) return consensusParams.nPremineReward * COIN;
 
-	  // Randall, check for prev. water block '68 32 6f'
+    // Randall, check for prev. water block '68 32 6f'
      
     // GPU/ASIC mining era
     // 2222222/(((x+2600)/9)^2)

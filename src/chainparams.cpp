@@ -113,7 +113,7 @@ public:
          * nMasternodePaymentsIncreaseBlock = 158000; // not used
          *
          */
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // not used, actual historical FIX value
+        consensus.nMasternodePaymentsIncreaseBlock = 158000; // after this value not used, actual historical FIX value
 
         /**
          * GetMasternodePayment
@@ -124,7 +124,7 @@ public:
          *  if(nHeight > nMNPIBlock+(nMasternodePaymentsIncreasePeriod* 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
          *  ....
          */
-        consensus.nMasternodePaymentsIncreasePeriod = 576*30; //actual historical FIX value
+        consensus.nMasternodePaymentsIncreasePeriod = 30 * 777; //actual historical FIX value
 
         /**
          * CTxLock
@@ -142,7 +142,7 @@ public:
          * used:validation.cpp
          * CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
          */
-        consensus.nBudgetPaymentsStartBlock = 328008; // Superblock will receive 10% after that blockheight, will start budget payments.
+        consensus.nBudgetPaymentsStartBlock = 1 * 777; // Superblock will receive 10% after that blockheight, will start budget payments.
 
         /**
          * MasternodePayments
@@ -150,13 +150,12 @@ public:
          * nOffset = nBlockHeight % consensusParams.nBudgetPaymentsCycleBlocks
          * ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
          */
-        consensus.nBudgetPaymentsCycleBlocks = 16616; //
+        consensus.nBudgetPaymentsCycleBlocks = 1 * 777; // after 1 day
 
-
-        consensus.nBudgetPaymentsWindowBlocks = 100;
+        consensus.nBudgetPaymentsWindowBlocks = 77;
         consensus.nBudgetProposalEstablishingTime = 60*60*24;
-        consensus.nSuperblockStartBlock = 614820; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
-        consensus.nSuperblockCycle = 16616; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
+        consensus.nSuperblockStartBlock = 100 * 777; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
+        consensus.nSuperblockCycle = 10 * 7777; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
@@ -167,7 +166,7 @@ public:
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day ... Randall 77 min?
+        consensus.nPowTargetTimespan = 77 * 60; // Mogwai: 1 day ... Randall 77 min?
         consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes Randall root of 7 * 60 = ~159 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
@@ -247,8 +246,7 @@ public:
 
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 60*60; // fulfilled requests expire in 1 hour
-        strSporkPubKey = "04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237a7bb899fdd";
-        //strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
+        strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -279,17 +277,18 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nPremineReward = 10000;
+        consensus.nPremineReward = 1000000;
         consensus.nSubsidyHalvingInterval = 210240;
-        consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 4030;
-        consensus.nMasternodePaymentsIncreasePeriod = 10;
+        consensus.nSubsidyHalvingDeclinePerc = 14;
+        consensus.nMasternodePaymentsStartBlock = 0; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
+        consensus.nMasternodePaymentsIncreaseBlock = 1000; // masternode increase starts at this block
+        consensus.nMasternodePaymentsIncreasePeriod = 3 * 777; // every 3 days
         consensus.nInstantSendKeepLock = 6;
-        consensus.nBudgetPaymentsStartBlock = 4100;
-        consensus.nBudgetPaymentsCycleBlocks = 50;
+        consensus.nBudgetPaymentsStartBlock = 1 * 777; // after 1 day
+        consensus.nBudgetPaymentsCycleBlocks = 77;
         consensus.nBudgetPaymentsWindowBlocks = 10;
         consensus.nBudgetProposalEstablishingTime = 60*20;
-        consensus.nSuperblockStartBlock = 4200; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
+        consensus.nSuperblockStartBlock = 10 * 777; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
         consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
@@ -300,8 +299,8 @@ public:
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
-        consensus.nPowTargetSpacing = 2.5 * 60; // Mogwai: 2.5 minutes
+        consensus.nPowTargetTimespan = 10 * 60; // Mogwai: every 10 min
+        consensus.nPowTargetSpacing = 1.85 * 60; // Mogwai: 111 seconds --> 777 blocks a day
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -310,17 +309,20 @@ public:
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 999999999999ULL;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 1199145601; // January 1, 2008
+        consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = 1230767999; // December 31, 2008
 
+        // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 999999999999ULL;
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800; // Feb 5th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800; // Feb 5th, 2018
 
+        // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 999999999999ULL;
-
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600; // Oct 15th, 2017
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600; // Oct 15th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); // randall: add chainwork here
@@ -335,7 +337,7 @@ public:
         vAlertPubKey = ParseHex("045b9703907569e67346e69d4784360970116c9fd6ddc56615e1dfc8bc63c876bf985007eca0248bb3031ef6e1e0ded215194066cf7a9060c27562787073fceac9"); // randalls testnet alert pub key
         nDefaultPort = 17888;
         nMaxTipAge = 0x7fffffff; // allow mining on top of old blocks for testnet
-        nDelayGetHeadersTime = 518378444; //24 * 60 * 60; // Randall: max time passed since last header ...
+        nDelayGetHeadersTime = 24 * 60 * 60; // Randall: max time passed since last header ...
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1518378444, 64329, 0x1e0ffff0, 1, 50 * COIN);
@@ -345,8 +347,8 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dnsseed1.mogwaicoin.org")); // randall: correct to test net seeder later
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dnsseed1.mogwaicoin.info")); // randall: correct to test net seeder later
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test1.mogwaicoin.info"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test2.mogwaicoin.info"));
 
         // Testnet Mogwai addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
@@ -372,8 +374,7 @@ public:
 
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
-        strSporkPubKey = "04549ac134f694c0243f503e8c8a9a986f5de6610049c40b07816809b0d1d06a21b07be27b9bb555931773f62ba6cf35a25fd52f694d4e1106ccd237a7bb899fdd";
-        //strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
+        strSporkPubKey = "04f43eeb3bf7ab96dd377506aaa5cb1b7f234410578fbbed9985204c386b9a099cd12e94986a8a5ac7d9decbac7846fefab06d7c4de153ddfd485c7e841590ed35";
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -397,6 +398,7 @@ public:
         strNetworkID = "regtest";
         consensus.nPremineReward = 0;
         consensus.nSubsidyHalvingInterval = 150;
+        consensus.nSubsidyHalvingDeclinePerc = 14;
         consensus.nMasternodePaymentsStartBlock = 240;
         consensus.nMasternodePaymentsIncreaseBlock = 350;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
