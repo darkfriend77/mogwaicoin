@@ -85,13 +85,8 @@ public:
     CMainParams() {
         strNetworkID = "main";
 
-
-        /**
-         * PremineReward:
-         * Value in coins which will be payed out on block number 1.
-         */
-        consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.
-        
+        consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.       
+               
         /** 
          * SubsidyHalvingInterval:
          * This variable determines the	numbers of blocks after which the block reward will be halved.
@@ -100,7 +95,9 @@ public:
          * Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
          * used: main_test.cpp, validation.cpp
          */
-        consensus.nSubsidyHalvingInterval = 210240; // one year
+        consensus.nSubsidyHalvingInterval = 210240; // Number of blocks to pass, for the next halving to be applied
+
+        consensus.nSubsidyHalvingDeclinePerc = 14; // Percent of decline on halving interval x % 
 
         /**
          * MasternodePayment:
@@ -145,7 +142,7 @@ public:
          * used:validation.cpp
          * CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
          */
-        consensus.nBudgetPaymentsStartBlock = 328008; // actual historical value
+        consensus.nBudgetPaymentsStartBlock = 328008; // Superblock will receive 10% after that blockheight, will start budget payments.
 
         /**
          * MasternodePayments

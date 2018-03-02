@@ -1236,7 +1236,8 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     // PremineReward
     if (nPrevHeight == 0) return consensusParams.nPremineReward * COIN;
 
-	// Randall, check for prev. water block '68 32 6f'
+	  // Randall, check for prev. water block '68 32 6f'
+     
     // GPU/ASIC mining era
     // 2222222/(((x+2600)/9)^2)
     nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
@@ -1248,7 +1249,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
     // yearly decline of production by ~14% per year, projected ~18M coins max by year 2050+.
     for (int i = consensusParams.nSubsidyHalvingInterval; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= nSubsidy/7;
+        nSubsidy -= nSubsidy * (consensusParams.nSubsidyHalvingDeclinePerc / 100);
     }
 
     // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
