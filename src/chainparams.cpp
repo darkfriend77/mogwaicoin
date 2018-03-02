@@ -147,6 +147,7 @@ public:
          */
         consensus.nBudgetPaymentsCycleBlocks = 16616; //
 
+
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nBudgetProposalEstablishingTime = 60*60*24;
         consensus.nSuperblockStartBlock = 614820; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
