@@ -85,22 +85,77 @@ public:
     CMainParams() {
         strNetworkID = "main";
 
-        consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.
 
-        /** nSubsidyHalvingInterval:
+        /**
+         * PremineReward:
+         * Value in coins which will be payed out on block number 1.
+         */
+        consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.
+        
+        /** 
+         * SubsidyHalvingInterval:
          * This variable determines the	numbers of blocks after which the block reward will be halved.
          * It is later used in the function GetBlockValue in main.cpp to assign the reward to a block
          *
          * Note: actual number of blocks per calendar year with DGW v3 is ~200700 (for example 449750 - 249050)
+         * used: main_test.cpp, validation.cpp
          */
-        consensus.nSubsidyHalvingInterval = 210240;
+        consensus.nSubsidyHalvingInterval = 210240; // one year
 
-        consensus.nMasternodePaymentsStartBlock = 100000; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 158000; // actual historical value
-        consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
+        /**
+         * MasternodePayment:
+         * Only used for boolean true or false, value set always to false
+         * used: mining.cpp
+         * Pair("masternode_payments_started", pindexPrev->nHeight + 1 > Params().GetConsensus().nMasternodePaymentsStartBlock)
+         */
+        consensus.nMasternodePaymentsStartBlock = 100000; // false
+
+        /**
+         * GetMasternodePayment
+         * not used, actual historical FIX values
+         * nMasternodePaymentsIncreaseBlock = 158000; // not used
+         *
+         */
+        consensus.nMasternodePaymentsIncreaseBlock = 158000; // not used, actual historical FIX value
+
+        /**
+         * GetMasternodePayment
+         * actual historical FIX value
+         * used: validation.cpp
+         *
+         *  if(nHeight > nMasternodePaymentsIncreasePeriod)                  ret += blockValue / 20; // 158000 - 25.0% - 2014-10-24
+         *  if(nHeight > nMNPIBlock+(nMasternodePaymentsIncreasePeriod* 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
+         *  ....
+         */
+        consensus.nMasternodePaymentsIncreasePeriod = 576*30; //actual historical FIX value
+
+        /**
+         * CTxLock
+         * nInstantSendKeepLock:
+         * Locks and votes expire nInstantSendKeepLock blocks after the block corresponding tx was included into.
+         * used: instantx.cpp
+         * CTxLockCandidate and CTxLockVote
+         */
         consensus.nInstantSendKeepLock = 24;
+
+        /**
+         * MasternodePayments
+         * used: masternode-payments.cpp
+         * IsBlockPayeeValid
+         * used:validation.cpp
+         * CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
+         */
         consensus.nBudgetPaymentsStartBlock = 328008; // actual historical value
-        consensus.nBudgetPaymentsCycleBlocks = 16616; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
+
+        /**
+         * MasternodePayments
+         * used: masternode-payments.cpp
+         * nOffset = nBlockHeight % consensusParams.nBudgetPaymentsCycleBlocks
+         * ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
+         */
+        consensus.nBudgetPaymentsCycleBlocks = 16616; //
+
+
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nBudgetProposalEstablishingTime = 60*60*24;
         consensus.nSuperblockStartBlock = 614820; // The block at which 12.1 goes live (end of final 12.0 budget cycle)
