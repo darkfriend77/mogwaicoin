@@ -268,16 +268,16 @@ static CMainParams mainParams;
  *   -z "Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!"
  *   -p "047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3"
  *   -t 1520063777
- *   -v 777000000000
+ *   -v 198400000000
  * 04ffff001d0104404279652d6279652c20576f6f6620576f6f662e20576520617265206d6f67776169732e20457870656374207573206f6e204a756e652032362028323031382921
  * algorithm: neoscrypt
- * merkle hash: 1bf1a9d86716c78d87c6a4c5dbfbde3f40e8a28fe6fbecf5d31c7794e0809c0b
+ * merkle hash: 0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce
  * pszTimestamp: Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!
  * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3
  * time: 1520063777
  * bits: 0x1e0ffff0
- * nonce: 564774
- * genesis hash: 000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183
+ * nonce: 222060
+ * genesis hash: 0x000005ead8eef7d61acf28702dde69375c40e4289903f7d9920ad70dc262fa7c
  */
 class CTestNetParams : public CChainParams {
 public:
@@ -303,7 +303,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183");
+        consensus.BIP34Hash = uint256S("0x000005ead8eef7d61acf28702dde69375c40e4289903f7d9920ad70dc262fa7c");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 10 * 60; // Mogwai: every 10 min
         consensus.nPowTargetSpacing = 1.85 * 60; // Mogwai: 111 seconds --> 777 blocks a day
@@ -334,7 +334,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); // TODO: add chainwork here
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183"); // TODO: add default valid block
+        consensus.defaultAssumeValid = uint256S("0x000005ead8eef7d61acf28702dde69375c40e4289903f7d9920ad70dc262fa7c"); // TODO: add default valid block
 
         pchMessageStart[0] = 0x92;
         pchMessageStart[1] = 0x70;
@@ -346,10 +346,10 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60; // Randall: max time passed since last header ...
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1520063777, 564774, 0x1e0ffff0, 1, 777 * COIN);
+        genesis = CreateGenesisBlock(1520063777, 222060, 0x1e0ffff0, 1, 1984 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183"));
-        assert(genesis.hashMerkleRoot == uint256S("0x1bf1a9d86716c78d87c6a4c5dbfbde3f40e8a28fe6fbecf5d31c7794e0809c0b"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000005ead8eef7d61acf28702dde69375c40e4289903f7d9920ad70dc262fa7c"));
+        assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -384,7 +384,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183")), // TODO: add checkpoints
+            (  0, uint256S("0x000005ead8eef7d61acf28702dde69375c40e4289903f7d9920ad70dc262fa7c")), // TODO: add checkpoints
       1520063777,    // * UNIX timestamp of last checkpoint block
                0,    // * total number of transactions between genesis and last checkpoint
                      //   (the tx=... number in the SetBestChain debug.log lines)
