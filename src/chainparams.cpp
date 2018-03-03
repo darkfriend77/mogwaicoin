@@ -263,22 +263,28 @@ static CMainParams mainParams;
 /**
  * Testnet (v3)
  *
+ * python genesis.py 
+ *   -a neoscrypt 
+ *   -z "Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!"
+ *   -p "047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3"
+ *   -t 1520063777
+ *   -v 777000000000
  * 04ffff001d0104404279652d6279652c20576f6f6620576f6f662e20576520617265206d6f67776169732e20457870656374207573206f6e204a756e652032362028323031382921
  * algorithm: neoscrypt
- * merkle hash: 9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2
+ * merkle hash: 1bf1a9d86716c78d87c6a4c5dbfbde3f40e8a28fe6fbecf5d31c7794e0809c0b
  * pszTimestamp: Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!
  * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3
- * time: 1518378444
+ * time: 1520063777
  * bits: 0x1e0ffff0
- * nonce: 64329
- * genesis hash: 00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901
+ * nonce: 564774
+ * genesis hash: 000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183
  */
 class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
-        consensus.nPremineReward = 1000000;
-        consensus.nSubsidyHalvingInterval = 210240;
+        consensus.nPremineReward = 10000;
+        consensus.nSubsidyHalvingInterval = 10 * 777; // halving after 10 days
         consensus.nSubsidyHalvingDeclinePerc = 14;
         consensus.nMasternodePaymentsStartBlock = 0; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 1000; // masternode increase starts at this block
@@ -289,7 +295,7 @@ public:
         consensus.nBudgetPaymentsWindowBlocks = 10;
         consensus.nBudgetProposalEstablishingTime = 60*20;
         consensus.nSuperblockStartBlock = 10 * 777; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
-        consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on testnet
+        consensus.nSuperblockCycle = 77; // Superblocks can be issued hourly on testnet
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
@@ -297,7 +303,7 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901");
+        consensus.BIP34Hash = uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 10 * 60; // Mogwai: every 10 min
         consensus.nPowTargetSpacing = 1.85 * 60; // Mogwai: 111 seconds --> 777 blocks a day
@@ -325,10 +331,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); // randall: add chainwork here
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); // TODO: add chainwork here
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901"); // randall: add default valid block
+        consensus.defaultAssumeValid = uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183"); // TODO: add default valid block
 
         pchMessageStart[0] = 0x92;
         pchMessageStart[1] = 0x70;
@@ -340,10 +346,10 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60; // Randall: max time passed since last header ...
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1518378444, 64329, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1520063777, 564774, 0x1e0ffff0, 1, 777 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901"));
-        assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183"));
+        assert(genesis.hashMerkleRoot == uint256S("0x1bf1a9d86716c78d87c6a4c5dbfbde3f40e8a28fe6fbecf5d31c7794e0809c0b"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -378,8 +384,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x00000003c432c0f65db86e8ea6ae404a7e3af936c4c961359ce9eeec637cb901")), // TODO: add checkpoints
-      1518378444,    // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("0x000004bf9df6f60a006209d4916f373283cf6e563d97fb49b33ed85ffb4dc183")), // TODO: add checkpoints
+      1520063777,    // * UNIX timestamp of last checkpoint block
                0,    // * total number of transactions between genesis and last checkpoint
                      //   (the tx=... number in the SetBestChain debug.log lines)
              500     // * estimated number of transactions per day after checkpoint
