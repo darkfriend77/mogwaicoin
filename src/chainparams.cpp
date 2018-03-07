@@ -276,7 +276,7 @@ static CMainParams mainParams;
  * pubkey: 047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3
  * time: 1520451777
  * bits: 0x1e0ffff0
- * nonce: 222060
+ * nonce: 202278
  * genesis hash: 0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5
  */
 class CTestNetParams : public CChainParams {
@@ -346,7 +346,7 @@ public:
         nDelayGetHeadersTime = 10 * 24 * 60 * 60; // Randall: max time passed since last header ...
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1520451777, 222060, 0x1e0ffff0, 1, 1984 * COIN);
+        genesis = CreateGenesisBlock(1520451777, 202278, 0x1e0ffff0, 1, 1984 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5"));
         assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
