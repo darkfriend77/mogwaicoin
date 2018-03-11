@@ -3,7 +3,7 @@ Construct a linear, no-fork, best version of the blockchain.
 
 ## Step 0: Install mogwai_hash
 
-https://github.com/mogwaipay/mogwai_hash
+https://github.com/mogwaicoin/mogwai_hash
 
 ## Step 1: Download hash list
 

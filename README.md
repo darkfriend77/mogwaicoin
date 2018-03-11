@@ -1,7 +1,7 @@
 Mogwai Core staging tree 0.12.2
 ===============================
 
-`master:` [![Build Status](https://travis-ci.org/mogwaipay/mogwai.svg?branch=master)](https://travis-ci.org/mogwaipay/mogwai) `develop:` [![Build Status](https://travis-ci.org/mogwaipay/mogwai.svg?branch=develop)](https://travis-ci.org/mogwaipay/mogwai/branches)
+`master:` [![Build Status](https://travis-ci.org/mogwaicoin/mogwai.svg?branch=master)](https://travis-ci.org/mogwaicoin/mogwai) `develop:` [![Build Status](https://travis-ci.org/mogwaicoin/mogwai.svg?branch=develop)](https://travis-ci.org/mogwaicoin/mogwai/branches)
 
 https://www.mogwai.org
 
@@ -29,7 +29,7 @@ Development Process
 -------------------
 
 The `master` branch is meant to be stable. Development is normally done in separate branches.
-[Tags](https://github.com/mogwaipay/mogwai/tags) are created to indicate new official,
+[Tags](https://github.com/mogwaicoin/mogwai/tags) are created to indicate new official,
 stable release versions of Mogwai Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).

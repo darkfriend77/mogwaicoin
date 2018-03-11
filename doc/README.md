@@ -24,9 +24,9 @@ Drag Mogwai-Qt to your applications folder, and then run Mogwai-Qt.
 
 ### Need Help?
 
-* See the [Mogwai documentation](https://mogwaipay.atlassian.net/wiki/display/DOC)
+* See the [Mogwai documentation](https://mogwaicoin.atlassian.net/wiki/display/DOC)
 for help and more information.
-* Ask for help on [#mogwaipay](http://webchat.freenode.net?channels=mogwaipay) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=mogwaipay).
+* Ask for help on [#mogwaicoin](http://webchat.freenode.net?channels=mogwaicoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=mogwaicoin).
 * Ask for help on the [MogwaiTalk](https://mogwaitalk.org/) forums.
 
 Building
@@ -58,7 +58,7 @@ The Mogwai Core repo's [root README](/README.md) contains relevant information o
 
 ### Resources
 * Discuss on the [MogwaiTalk](https://mogwaitalk.org/) forums, in the Development & Technical Discussion board.
-* Discuss on [#mogwaipay](http://webchat.freenode.net/?channels=mogwaipay) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=mogwaipay).
+* Discuss on [#mogwaicoin](http://webchat.freenode.net/?channels=mogwaicoin) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=mogwaicoin).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

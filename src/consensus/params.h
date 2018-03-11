@@ -42,7 +42,9 @@ struct BIP9Deployment {
  */
 struct Params {
     uint256 hashGenesisBlock;
+    int nPremineReward; // mogwai specific    
     int nSubsidyHalvingInterval;
+    int nSubsidyHalvingDeclinePerc; // mogwai specific    
     int nMasternodePaymentsStartBlock;
     int nMasternodePaymentsIncreaseBlock;
     int nMasternodePaymentsIncreasePeriod; // in blocks
