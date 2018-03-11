@@ -15,7 +15,7 @@ osx=false
 
 # Other Basic variables
 SIGNER=RandallPeltzer
-VERSION=alpha
+VERSION=
 commit=true
 url=https://randallpeltzer@bitbucket.org/mogwaicoin/mogwai.git
 proc=2
@@ -25,7 +25,7 @@ osslTarUrl=http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/os
 osslPatchUrl=https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
 scriptName=$(basename -- "$0")
 signProg="gpg --detach-sign"
-commitFiles=true
+commitFiles=false
 
 # Help Message
 read -d '' usage <<- EOF
