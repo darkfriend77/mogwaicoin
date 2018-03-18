@@ -1230,8 +1230,8 @@ NOTE:   unlike bitcoin we are using PREVIOUS block height here,
 */
 CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    double dDiff;
-    CAmount nSubsidyBase;
+
+	CAmount nSubsidyBase;
 
     // PremineReward
     if (nPrevHeight == 0) return consensusParams.nPremineReward * COIN;
@@ -1240,7 +1240,7 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
      
     // GPU/ASIC mining era
     // 2222222/(((x+2600)/9)^2)
-    nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
+    nSubsidyBase = (2222222.0 / (pow((2600.0)/9.0,2.0)));
     if(nSubsidyBase > 50) nSubsidyBase = 50;
     else if(nSubsidyBase < 5) nSubsidyBase = 5;
 
