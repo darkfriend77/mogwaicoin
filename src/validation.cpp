@@ -1230,19 +1230,24 @@ NOTE:   unlike bitcoin we are using PREVIOUS block height here,
 */
 CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-
-	CAmount nSubsidyBase;
-
     // PremineReward
-    if (nPrevHeight == 0) return consensusParams.nPremineReward * COIN;
+    if (nPrevHeight == 0)
+		return consensusParams.nPremineReward * COIN;
 
-    // Randall, check for prev. water block '68 32 6f'
-     
+	// previous difficulty
+	double dDiff; // = ConvertBitsToDouble(nPrevBits);
+
+	//string hexHash = nHashPrevBlock.GetHex();
+	string hexHash = chainActive[nPrevHeight]->GetBlockHash().GetHex();
+	LogPrintf("GetBlockSubsidy: prevHexHash %s\n", hexHash);
+
     // GPU/ASIC mining era
-    // 2222222/(((x+2600)/9)^2)
-    nSubsidyBase = (2222222.0 / (pow((2600.0)/9.0,2.0)));
-    if(nSubsidyBase > 50) nSubsidyBase = 50;
-    else if(nSubsidyBase < 5) nSubsidyBase = 5;
+	CAmount nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0, 2.0))); // 2222222/(((x+2600)/9)^2)
+
+	if(nSubsidyBase > 50)
+		nSubsidyBase = 50;
+    else if(nSubsidyBase < 5)
+		nSubsidyBase = 5;
 
     // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
     CAmount nSubsidy = nSubsidyBase * COIN;
