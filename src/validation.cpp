@@ -1230,37 +1230,52 @@ NOTE:   unlike bitcoin we are using PREVIOUS block height here,
 */
 CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
 {
-    // PremineReward
-    if (nPrevHeight == 0)
+	// PremineReward
+	if (nPrevHeight == 0)
 		return consensusParams.nPremineReward * COIN;
 
 	// previous difficulty
-	double dDiff; // = ConvertBitsToDouble(nPrevBits);
+	double dDiff = ConvertBitsToDouble(nPrevBits);
 
-	//string hexHash = nHashPrevBlock.GetHex();
-	string hexHash = chainActive[nPrevHeight]->GetBlockHash().GetHex();
-	LogPrintf("GetBlockSubsidy: prevHexHash %s\n", hexHash);
+	int feedIndex = -1;
+	if (nPrevHeight > 7) {
+		string hexHash;
+		for (int i = 0; i < 7; ++i) {
+			hexHash = chainActive[nPrevHeight - i]->GetBlockHash().GetHex();
+			if (hexHash.find("feed") != std::string::npos
+		     || hexHash.find("caca") != std::string::npos
+			 || hexHash.find("face") != std::string::npos) {
+				LogPrintf("previousBlockHash(%u) was a feed/caca/face hash (%s)!\n", i, hexHash);
+				feedIndex = i;
+				break;
+			}
+		}
+	}
 
-    // GPU/ASIC mining era
-	CAmount nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0, 2.0))); // 2222222/(((x+2600)/9)^2)
+	// GPU/ASIC mining era
+	CAmount nSubsidyBase = (2222222.0 / (pow((dDiff + 2600.0) / 9.0, 2.0))); // 2222222/(((x+2600)/9)^2)
 
-	if(nSubsidyBase > 50)
+	if (nSubsidyBase > 50)
 		nSubsidyBase = 50;
-    else if(nSubsidyBase < 5)
+	else if (nSubsidyBase < 5)
 		nSubsidyBase = 5;
 
-    // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
-    CAmount nSubsidy = nSubsidyBase * COIN;
+	if (feedIndex > -1) {
+		nSubsidyBase *= 7 - feedIndex;
+	}
 
-    // yearly decline of production by ~14% per year, projected ~18M coins max by year 2050+.
-    for (int i = consensusParams.nSubsidyHalvingInterval; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= nSubsidy * (consensusParams.nSubsidyHalvingDeclinePerc / 100);
-    }
+	// LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
+	CAmount nSubsidy = nSubsidyBase * COIN;
 
-    // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
-    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
+	// yearly decline of production by ~14% per year, projected ~18M coins max by year 2050+.
+	for (int i = consensusParams.nSubsidyHalvingInterval; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
+		nSubsidy -= nSubsidy * (consensusParams.nSubsidyHalvingDeclinePerc / 100);
+	}
 
-    return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
+	// Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
+	CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy / 10 : 0;
+
+	return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
 }
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
