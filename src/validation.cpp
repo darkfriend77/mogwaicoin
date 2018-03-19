@@ -1261,7 +1261,9 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 		nSubsidyBase = 5;
 
 	if (feedIndex > -1) {
+		LogPrintf("orginal nSubsidyBase: %u\n", nSubsidyBase);
 		nSubsidyBase *= 7 - feedIndex;
+		LogPrintf("feeding nSubsidyBase: %u\n", nSubsidyBase);
 	}
 
 	// LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
