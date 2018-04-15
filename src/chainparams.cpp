@@ -86,7 +86,8 @@ public:
         strNetworkID = "main";
 
         consensus.nPremineReward = 1000000; // Premine reward payed out on the first mined block.       
-               
+		consensus.nFeedSubsidyFactor = 7; // how mine blocks the feed will be applied.
+
         /** 
          * SubsidyHalvingInterval:
          * This variable determines the	numbers of blocks after which the block reward will be halved.
@@ -284,6 +285,7 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nPremineReward = 10000;
+		consensus.nFeedSubsidyFactor = 7;
         consensus.nSubsidyHalvingInterval = 10 * 777; // halving after 10 days
         consensus.nSubsidyHalvingDeclinePerc = 14;
         consensus.nMasternodePaymentsStartBlock = 0; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
@@ -403,6 +405,7 @@ public:
     CRegTestParams() {
         strNetworkID = "regtest";
         consensus.nPremineReward = 0;
+		consensus.nFeedSubsidyFactor = 7;
         consensus.nSubsidyHalvingInterval = 150;
         consensus.nSubsidyHalvingDeclinePerc = 14;
         consensus.nMasternodePaymentsStartBlock = 240;
