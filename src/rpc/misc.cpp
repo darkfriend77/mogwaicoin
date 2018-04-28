@@ -298,8 +298,8 @@ UniValue pubkey2address(const UniValue& params, bool fHelp)
 		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Pubkey must be a hex string");
 
 	CPubKey pubKey(ParseHex(params[0].get_str()));
-	if (!pubKey.IsFullyValid())
-		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Pubkey is not a valid public key");
+	//if (!pubKey.IsFullyValid())
+	//	throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Pubkey is not a valid public key");
 
 	CBitcoinAddress address(pubKey.GetID());
 	bool isValid = address.IsValid();
