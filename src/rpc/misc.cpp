@@ -306,12 +306,9 @@ UniValue pubkey2address(const UniValue& params, bool fHelp)
 
 	UniValue ret(UniValue::VOBJ);
 	ret.push_back(Pair("isvalid", isValid));
-	if (isValid)
-	{
-		CTxDestination dest = address.Get();
-		string currentAddress = address.ToString();
-		ret.push_back(Pair("address", currentAddress));
-	}
+	CTxDestination dest = address.Get();
+	string currentAddress = address.ToString();
+	ret.push_back(Pair("address", currentAddress));
 	return ret;
 }
 
