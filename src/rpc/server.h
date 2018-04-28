@@ -245,6 +245,7 @@ extern UniValue walletpassphrase(const UniValue& params, bool fHelp);
 extern UniValue walletpassphrasechange(const UniValue& params, bool fHelp);
 extern UniValue walletlock(const UniValue& params, bool fHelp);
 extern UniValue encryptwallet(const UniValue& params, bool fHelp);
+extern UniValue mirroraddress(const UniValue& params, bool fHelp);
 extern UniValue validateaddress(const UniValue& params, bool fHelp);
 extern UniValue getinfo(const UniValue& params, bool fHelp);
 extern UniValue debug(const UniValue& params, bool fHelp);
