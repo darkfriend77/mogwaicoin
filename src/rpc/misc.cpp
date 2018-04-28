@@ -276,6 +276,45 @@ UniValue spork(const UniValue& params, bool fHelp)
 
 }
 
+UniValue pubkey2address(const UniValue& params, bool fHelp)
+{
+	if (fHelp || params.size() != 1)
+		throw runtime_error(
+			"pubkeytoaddress \"pubkey\"\n"
+			"\nConverts a public key (in hex) into an address (base58).\n"
+			"\nArguments:\n"
+			"1. \"pubkey\"           (string, required) The hex-encoded public key\n"
+			"\nResult:\n"
+			"{\n"
+			"  \"isvalid\" : true|false,       (boolean) If the address is valid or not. If not, this is the only property returned.\n"
+			"  \"address\" : \"mogwaiaddress\", (string) The mogwai address validated\n"
+			"}\n"
+			"\nExamples:\n"
+			+ HelpExampleCli("pubkeytoaddress", "\"mypubkey\"")
+			+ HelpExampleRpc("pubkeytoaddress", "\"mypubkey\"")
+		);
+
+	if (!IsHex(params[0].get_str()))
+		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Pubkey must be a hex string");
+
+	CPubKey pubKey(ParseHex(params[0].get_str()));
+	if (!pubKey.IsFullyValid())
+		throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Pubkey is not a valid public key");
+
+	CBitcoinAddress address(pubKey.GetID());
+	bool isValid = address.IsValid();
+
+	UniValue ret(UniValue::VOBJ);
+	ret.push_back(Pair("isvalid", isValid));
+	if (isValid)
+	{
+		CTxDestination dest = address.Get();
+		string currentAddress = address.ToString();
+		ret.push_back(Pair("address", currentAddress));
+	}
+	return ret;
+}
+
 UniValue mirroraddress(const UniValue& params, bool fHelp)
 {
 	if (fHelp || params.size() != 1)
