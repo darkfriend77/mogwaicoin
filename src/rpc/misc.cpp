@@ -336,13 +336,14 @@ UniValue mirroraddress(const UniValue& params, bool fHelp)
 			"  \"isscript\" : true|false,      (boolean) If the key is a script\n"
 			"  \"pubkey\" : \"publickeyhex\",    (string) The hex value of the raw public key\n"
 			"  \"iscompressed\" : true|false,  (boolean) If the address is compressed\n"
-			"  \"account\" : \"account\"         (string) DEPRECATED. The account associated with the address, \"\" is the default account\n"
-			"  \"hdkeypath\" : \"keypath\"       (string, optional) The HD keypath if the key is HD and available\n"
-			"  \"hdchainid\" : \"<hash>\"        (string, optional) The ID of the HD chain\n"
+			"  \"mirkey\" : \"mirkeyhex\"         (string) The hex value of the raw mirror key\n\n"
+			"  \"mirkeyvalid\" : true|false,       (boolean) If the mirror key is valid or not.\n"
+			"  \"ismiraddrvalid\" : true|false,       (boolean) If the mirror address is valid or not.\n"
+			"  \"miraddress\" : \"mogwaiaddress\", (string) The mirror address validated\n"
 			"}\n"
 			"\nExamples:\n"
-			+ HelpExampleCli("validateaddress", "\"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg\"")
-			+ HelpExampleRpc("validateaddress", "\"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg\"")
+			+ HelpExampleCli("mirroraddress", "\"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg\"")
+			+ HelpExampleRpc("mirroraddress", "\"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg\"")
 		);
 
 #ifdef ENABLE_WALLET
@@ -366,20 +367,51 @@ UniValue mirroraddress(const UniValue& params, bool fHelp)
 		ret.push_back(Pair("scriptPubKey", HexStr(scriptPubKey.begin(), scriptPubKey.end())));
 
 #ifdef ENABLE_WALLET
+
 		isminetype mine = pwalletMain ? IsMine(*pwalletMain, dest) : ISMINE_NO;
 		ret.push_back(Pair("ismine", (mine & ISMINE_SPENDABLE) ? true : false));
 		ret.push_back(Pair("iswatchonly", (mine & ISMINE_WATCH_ONLY) ? true : false));
-		UniValue detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
-		ret.pushKVs(detail);
-		if (pwalletMain && pwalletMain->mapAddressBook.count(dest))
-			ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest].name));
+
 		CKeyID keyID;
-		CHDChain hdChainCurrent;
-		if (pwalletMain && address.GetKeyID(keyID) && pwalletMain->mapHdPubKeys.count(keyID) && pwalletMain->GetHDChain(hdChainCurrent))
-		{
-			ret.push_back(Pair("hdkeypath", pwalletMain->mapHdPubKeys[keyID].GetKeyPath()));
-			ret.push_back(Pair("hdchainid", hdChainCurrent.GetID().GetHex()));
+		if (!address.GetKeyID(keyID))
+			throw runtime_error(strprintf("%s does not refer to a key", params[0].get_str()));
+		
+		CPubKey vchPubKey;
+		if (!pwalletMain->GetPubKey(keyID, vchPubKey))
+			throw runtime_error(strprintf("no full public key for address %s", params[0].get_str()));
+
+		if (!vchPubKey.IsFullyValid())
+			throw runtime_error(" Invalid public key: " + params[0].get_str());
+		
+		string pubKeyStr = HexStr(vchPubKey);
+
+		ret.push_back(Pair("isscript", false));
+		ret.push_back(Pair("pubkey", pubKeyStr));
+		ret.push_back(Pair("iscompressed", vchPubKey.IsCompressed()));
+
+		string mirrorStr = str.substr(10, 54);
+		reverse(mirrorStr.begin(), mirrorStr.end());
+
+		string mirKeyStr = str.substr(0, 8) + str.substr(8, 2) + mirrorStr + str.substr(64, 2);
+		ret.push_back(Pair("mirkey", mirKeyStr));
+
+		CPubKey vchMirKey(ParseHex(mirKeyStr));
+		bool isMirKeyValid = !vchMirKey.IsFullyValid();
+		ret.push_back(Pair("mirkeyvalid", isMirKeyValid));
+
+		if (isMirKeyValid) {
+			CBitcoinAddress mirAddress(vchMirKey.GetID());
+			bool isMirAddrValid = mirAddress.IsValid();
+			ret.push_back(Pair("ismiraddrvalid", isMirAddrValid));
+			if (isMirAddrValid)
+			{
+				CTxDestination dest = mirAddress.Get();
+				ret.push_back(Pair("miraddress", mirAddress.ToString()));
+			}
 		}
+
+		//UniValue detail = boost::apply_visitor(DescribeAddressVisitor(), dest);
+		//ret.pushKVs(detail);
 #endif
 	}
 	return ret;
