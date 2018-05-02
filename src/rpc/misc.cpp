@@ -389,10 +389,10 @@ UniValue mirroraddress(const UniValue& params, bool fHelp)
 		ret.push_back(Pair("pubkey", pubKeyStr));
 		ret.push_back(Pair("iscompressed", vchPubKey.IsCompressed()));
 
-		string mirrorStr = str.substr(10, 54);
+		string mirrorStr = pubKeyStr.substr(10, 54);
 		reverse(mirrorStr.begin(), mirrorStr.end());
 
-		string mirKeyStr = str.substr(0, 8) + str.substr(8, 2) + mirrorStr + str.substr(64, 2);
+		string mirKeyStr = pubKeyStr.substr(0, 8) + pubKeyStr.substr(8, 2) + mirrorStr + pubKeyStr.substr(64, 2);
 		ret.push_back(Pair("mirkey", mirKeyStr));
 
 		CPubKey vchMirKey(ParseHex(mirKeyStr));
