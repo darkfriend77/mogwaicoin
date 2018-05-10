@@ -1238,21 +1238,6 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 	// previous difficulty
 	double dDiff = ConvertBitsToDouble(nPrevBits);
 
-	int feedIndex = -1;
-	if (nPrevHeight > consensusParams.nFeedSubsidyFactor) {
-		string hexHash;
-		for (int i = 0; i < consensusParams.nFeedSubsidyFactor; ++i) {
-			hexHash = chainActive[nPrevHeight - i]->GetBlockHash().GetHex();
-			if (hexHash.find("feed") != std::string::npos
-		     || hexHash.find("caca") != std::string::npos
-			 || hexHash.find("face") != std::string::npos) {
-				LogPrintf("previousBlockHash(%u) was a feed/caca/face hash (%s)!\n", i, hexHash);
-				feedIndex = i;
-				break;
-			}
-		}
-	}
-
 	// GPU/ASIC mining era
 	CAmount nSubsidyBase = (2222222.0 / (pow((dDiff + 2600.0) / 9.0, 2.0))); // 2222222/(((x+2600)/9)^2)
 
@@ -1261,6 +1246,8 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 	else if (nSubsidyBase < 5)
 		nSubsidyBase = 5;
 
+	// event
+	int feedIndex = GetEventIndexChain(consensusParams.nFeedSubsidyFactor, nPrevHeight, "feed");
 	if (feedIndex > -1) {
 		LogPrintf("orginal nSubsidyBase: %u\n", nSubsidyBase);
 		nSubsidyBase *= consensusParams.nFeedSubsidyFactor - feedIndex;
@@ -1283,53 +1270,22 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
-	int feedParam = Params().GetConsensus().nFeedSubsidyFactor;
+	CAmount ret = blockValue / 5; // start at 20%
 
-    CAmount ret = blockValue / 5; // start at 20%
+	int nMNPIBlock = Params().GetConsensus().nMasternodePaymentsIncreaseBlock;
+	int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
 
-	if (nHeight < 12500) {
+	if (nHeight > nMNPIBlock)                     ret += blockValue / 20; // 158000 - 25.0%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 1)) ret += blockValue / 20; // 175280 - 30.0%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 2)) ret += blockValue / 20; // 192560 - 35.0%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 3)) ret += blockValue / 40; // 209840 - 37.5%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 4)) ret += blockValue / 40; // 227120 - 40.0%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 5)) ret += blockValue / 40; // 244400 - 42.5%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 6)) ret += blockValue / 40; // 261680 - 45.0%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 7)) ret += blockValue / 40; // 278960 - 47.5%
+	if (nHeight > nMNPIBlock + (nMNPIPeriod * 9)) ret += blockValue / 40; // 313520 - 50.0%
 
-		int nMNPIBlock = Params().GetConsensus().nMasternodePaymentsIncreaseBlock;
-		int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
-
-		// mainnet:
-		if (nHeight > nMNPIBlock)                  ret += blockValue / 20; // 158000 - 25.0% - 2014-10-24
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 2)) ret += blockValue / 20; // 192560 - 35.0% - 2014-12-26
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 3)) ret += blockValue / 40; // 209840 - 37.5% - 2015-01-26
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 4)) ret += blockValue / 40; // 227120 - 40.0% - 2015-02-27
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 5)) ret += blockValue / 40; // 244400 - 42.5% - 2015-03-30
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 6)) ret += blockValue / 40; // 261680 - 45.0% - 2015-05-01
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 7)) ret += blockValue / 40; // 278960 - 47.5% - 2015-06-01
-		if (nHeight > nMNPIBlock + (nMNPIPeriod * 9)) ret += blockValue / 40; // 313520 - 50.0% - 2015-08-03
-
-	}
-	else if (nHeight > 0) {
-
-		ret = blockValue / 2; // 50% 
-
-		int nPrevHeight = nHeight - 1;
-
-		int feedIndex = -1;
-		if (nPrevHeight > feedParam) {
-			string hexHash;
-			for (int i = 0; i < feedParam; ++i) {
-				hexHash = chainActive[nPrevHeight - i]->GetBlockHash().GetHex();
-				if (hexHash.find("feed") != std::string::npos
-				 || hexHash.find("caca") != std::string::npos
-				 || hexHash.find("face") != std::string::npos) {
-					LogPrintf("previousBlockHash(%u) was a feed/caca/face hash (%s)!\n", i, hexHash);
-					feedIndex = i;
-					break;
-				}
-			}
-		}
-
-		ret -= (blockValue / 20) * (feedParam - feedIndex);
-	}
-
-
-    return ret;
+	return ret;
 }
 
 int GetEventIndexChain(int backTrackIndex, int prevHeight, string eventString)
