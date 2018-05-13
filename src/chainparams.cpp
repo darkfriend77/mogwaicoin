@@ -299,7 +299,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test1.mogwaicoin.info"));
-        vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test2.mogwaicoin.info"));
+        //vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test2.mogwaicoin.info"));
 
         // Testnet Mogwai addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
