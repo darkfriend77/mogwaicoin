@@ -1614,25 +1614,25 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 		if (pacentry != 0)
 			AcentryToJSON(*pacentry, strAccount, ret);
 
-		if ((int)ret.size() >= (nCount + nFrom)) break;
+		//if ((int)ret.size() >= (nCount + nFrom)) break;
 	}
 	// ret is newest to oldest
 
-	if (nFrom > (int)ret.size())
-		nFrom = ret.size();
-	if ((nFrom + nCount) > (int)ret.size())
-		nCount = ret.size() - nFrom;
+	//if (nFrom > (int)ret.size())
+	//	nFrom = ret.size();
+	//if ((nFrom + nCount) > (int)ret.size())
+	//	nCount = ret.size() - nFrom;
 
 	vector<UniValue> arrTmp = ret.getValues();
 
-	vector<UniValue>::iterator first = arrTmp.begin();
-	std::advance(first, nFrom);
+	//vector<UniValue>::iterator first = arrTmp.begin();
+	//std::advance(first, nFrom);
 
-	vector<UniValue>::iterator last = arrTmp.begin();
-	std::advance(last, nFrom + nCount);
+	//vector<UniValue>::iterator last = arrTmp.begin();
+	//std::advance(last, nFrom + nCount);
 
-	if (last != arrTmp.end()) arrTmp.erase(last, arrTmp.end());
-	if (first != arrTmp.begin()) arrTmp.erase(arrTmp.begin(), first);
+	//if (last != arrTmp.end()) arrTmp.erase(last, arrTmp.end());
+	//if (first != arrTmp.begin()) arrTmp.erase(arrTmp.begin(), first);
 
 	//std::reverse(arrTmp.begin(), arrTmp.end()); // Return oldest to newest
 
