@@ -1646,7 +1646,7 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	{
 		CWalletTx *const pwtx = (*it).second.first;
 		if (pwtx != 0)
-			ListSentTransactions(*pwtx, strAccount, 0, true, ret, filter);
+			ListSentTransactions(*pwtx, strAccount, ret, filter);
 		CAccountingEntry *const pacentry = (*it).second.second;
 		if (pacentry != 0)
 			AcentryToJSON(*pacentry, strAccount, ret);
