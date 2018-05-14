@@ -1422,7 +1422,7 @@ static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
         entry.push_back(Pair("address", addr.ToString()));
 }
 
-void ListSentTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
+void ListSentTransactions(const CWalletTx& wtx, const string& strAddress, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
 {
 	CAmount nFee;
 	string strSentAccount;
@@ -1431,19 +1431,17 @@ void ListSentTransactions(const CWalletTx& wtx, const string& strAccount, int nM
 
 	wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, filter);
 
-	bool fAllAccounts = (strAccount == string("*"));
-	bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
-
 	// Sent
-	if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount))
+	if (!listSent.empty() || nFee != 0)
 	{
 		BOOST_FOREACH(const COutputEntry& s, listSent)
 		{
 			UniValue entry(UniValue::VOBJ);
-			if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
-				entry.push_back(Pair("involvesWatchonly", true));
+
 			entry.push_back(Pair("account", strSentAccount));
-			MaybePushAddress(entry, s.destination);
+			CBitcoinAddress addr;
+			if (addr.Set(s.destination))
+				entry.push_back(Pair("address", addr.ToString()));
 			std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
 			entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "privatesend" : "send"));
 			entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
@@ -1454,7 +1452,9 @@ void ListSentTransactions(const CWalletTx& wtx, const string& strAccount, int nM
 			if (fLong)
 				WalletTxToJSON(wtx, entry);
 			entry.push_back(Pair("abandoned", wtx.isAbandoned()));
-			ret.push_back(entry);
+			// only push if it's a sent to the mirr address
+			if (addr.ToString() == strAddress)
+				ret.push_back(entry);
 		}
 	}
 }
@@ -1618,9 +1618,9 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 
 	LOCK2(cs_main, pwalletMain->cs_wallet);
 
-	string strAccount = "*";
+	string strAddress = "";
 	if (params.size() > 0)
-		strAccount = params[0].get_str();
+		strAddress = params[0].get_str();
 	int nCount = 10;
 	if (params.size() > 1)
 		nCount = params[1].get_int();
@@ -1646,32 +1646,10 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	{
 		CWalletTx *const pwtx = (*it).second.first;
 		if (pwtx != 0)
-			ListSentTransactions(*pwtx, strAccount, 0, true, ret, filter);
-		CAccountingEntry *const pacentry = (*it).second.second;
-		if (pacentry != 0)
-			AcentryToJSON(*pacentry, strAccount, ret);
-
-		//if ((int)ret.size() >= (nCount + nFrom)) break;
+			ListSentTransactions(*pwtx, strAddress, 0, true, ret, filter);
 	}
-	// ret is newest to oldest
-
-	//if (nFrom > (int)ret.size())
-	//	nFrom = ret.size();
-	//if ((nFrom + nCount) > (int)ret.size())
-	//	nCount = ret.size() - nFrom;
 
 	vector<UniValue> arrTmp = ret.getValues();
-
-	//vector<UniValue>::iterator first = arrTmp.begin();
-	//std::advance(first, nFrom);
-
-	//vector<UniValue>::iterator last = arrTmp.begin();
-	//std::advance(last, nFrom + nCount);
-
-	//if (last != arrTmp.end()) arrTmp.erase(last, arrTmp.end());
-	//if (first != arrTmp.begin()) arrTmp.erase(arrTmp.begin(), first);
-
-	//std::reverse(arrTmp.begin(), arrTmp.end()); // Return oldest to newest
 
 	ret.clear();
 	ret.setArray();
