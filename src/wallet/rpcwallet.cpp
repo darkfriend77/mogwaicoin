@@ -1422,6 +1422,43 @@ static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
         entry.push_back(Pair("address", addr.ToString()));
 }
 
+void ListSentTransactions(const CWalletTx& wtx, const string& strAccount, UniValue& ret, const isminefilter& filter)
+{
+	CAmount nFee;
+	string strSentAccount;
+	list<COutputEntry> listReceived;
+	list<COutputEntry> listSent;
+
+	wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, filter);
+
+	bool fAllAccounts = (strAccount == string("*"));
+	bool involvesWatchonly = wtx.IsFromMe(ISMINE_WATCH_ONLY);
+
+	// Sent
+	if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount))
+	{
+		BOOST_FOREACH(const COutputEntry& s, listSent)
+		{
+			UniValue entry(UniValue::VOBJ);
+			if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
+				entry.push_back(Pair("involvesWatchonly", true));
+			entry.push_back(Pair("account", strSentAccount));
+			MaybePushAddress(entry, s.destination);
+			std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
+			entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "privatesend" : "send"));
+			entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
+			if (pwalletMain->mapAddressBook.count(s.destination))
+				entry.push_back(Pair("label", pwalletMain->mapAddressBook[s.destination].name));
+			entry.push_back(Pair("vout", s.vout));
+			entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
+			if (fLong)
+				WalletTxToJSON(wtx, entry);
+			entry.push_back(Pair("abandoned", wtx.isAbandoned()));
+			ret.push_back(entry);
+		}
+	}
+}
+
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
 {
     CAmount nFee;
@@ -1609,7 +1646,7 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	{
 		CWalletTx *const pwtx = (*it).second.first;
 		if (pwtx != 0)
-			ListTransactions(*pwtx, strAccount, 0, true, ret, filter);
+			ListSentTransactions(*pwtx, strAccount, 0, true, ret, filter);
 		CAccountingEntry *const pacentry = (*it).second.second;
 		if (pacentry != 0)
 			AcentryToJSON(*pacentry, strAccount, ret);
