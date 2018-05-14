@@ -1422,7 +1422,7 @@ static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
         entry.push_back(Pair("address", addr.ToString()));
 }
 
-void ListSentTransactions(const CWalletTx& wtx, const string& strAddress, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
+void ListSentTransactions(const CWalletTx& wtx, const string& strAddress, UniValue& ret, const isminefilter& filter)
 {
 	CAmount nFee;
 	string strSentAccount;
@@ -1438,19 +1438,15 @@ void ListSentTransactions(const CWalletTx& wtx, const string& strAddress, int nM
 		{
 			UniValue entry(UniValue::VOBJ);
 
-			entry.push_back(Pair("account", strSentAccount));
 			CBitcoinAddress addr;
 			if (addr.Set(s.destination))
 				entry.push_back(Pair("address", addr.ToString()));
 			std::map<std::string, std::string>::const_iterator it = wtx.mapValue.find("DS");
 			entry.push_back(Pair("category", (it != wtx.mapValue.end() && it->second == "1") ? "privatesend" : "send"));
 			entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
-			if (pwalletMain->mapAddressBook.count(s.destination))
-				entry.push_back(Pair("label", pwalletMain->mapAddressBook[s.destination].name));
 			entry.push_back(Pair("vout", s.vout));
 			entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
-			if (fLong)
-				WalletTxToJSON(wtx, entry);
+			WalletTxToJSON(wtx, entry);
 			entry.push_back(Pair("abandoned", wtx.isAbandoned()));
 			// only push if it's a sent to the mirr address
 			if (addr.ToString() == strAddress)
@@ -1621,21 +1617,7 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	string strAddress = "";
 	if (params.size() > 0)
 		strAddress = params[0].get_str();
-	int nCount = 10;
-	if (params.size() > 1)
-		nCount = params[1].get_int();
-	int nFrom = 0;
-	if (params.size() > 2)
-		nFrom = params[2].get_int();
 	isminefilter filter = ISMINE_SPENDABLE;
-	if (params.size() > 3)
-		if (params[3].get_bool())
-			filter = filter | ISMINE_WATCH_ONLY;
-
-	if (nCount < 0)
-		throw JSONRPCError(RPC_INVALID_PARAMETER, "Negative count");
-	if (nFrom < 0)
-		throw JSONRPCError(RPC_INVALID_PARAMETER, "Negative from");
 
 	UniValue ret(UniValue::VARR);
 
@@ -1646,7 +1628,7 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	{
 		CWalletTx *const pwtx = (*it).second.first;
 		if (pwtx != 0)
-			ListSentTransactions(*pwtx, strAddress, 0, true, ret, filter);
+			ListSentTransactions(*pwtx, strAddress, ret, filter);
 	}
 
 	vector<UniValue> arrTmp = ret.getValues();
