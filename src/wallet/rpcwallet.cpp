@@ -1422,7 +1422,7 @@ static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
         entry.push_back(Pair("address", addr.ToString()));
 }
 
-void ListSentTransactions(const CWalletTx& wtx, const string& strAddress, UniValue& ret, const isminefilter& filter)
+void ListMirrTransactions(const CWalletTx& wtx, const string& strAddress, UniValue& ret, const isminefilter& filter)
 {
 	CAmount nFee;
 	string strSentAccount;
@@ -1628,7 +1628,7 @@ UniValue listmirrtransactions(const UniValue& params, bool fHelp)
 	{
 		CWalletTx *const pwtx = (*it).second.first;
 		if (pwtx != 0)
-			ListSentTransactions(*pwtx, strAddress, ret, filter);
+			ListMirrTransactions(*pwtx, strAddress, ret, filter);
 	}
 
 	vector<UniValue> arrTmp = ret.getValues();
