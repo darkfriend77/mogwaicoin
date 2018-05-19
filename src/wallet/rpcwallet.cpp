@@ -1454,11 +1454,13 @@ void ListMirrTransactions(const CWalletTx& wtx, const string& strAddress, UniVal
 			if (wtx.IsCoinBase())
 				entry.push_back(Pair("generated", true));
 			if (confirms > 0)
+			{
 				entry.push_back(Pair("blockhash", wtx.hashBlock.GetHex()));
 				entry.push_back(Pair("blockindex", wtx.nIndex));
 				entry.push_back(Pair("blocktime", mapBlockIndex[wtx.hashBlock]->GetBlockTime()));
 			}
-			else {
+			else 
+			{
 				entry.push_back(Pair("trusted", wtx.IsTrusted()));
 			}
 			uint256 hash = wtx.GetHash();
