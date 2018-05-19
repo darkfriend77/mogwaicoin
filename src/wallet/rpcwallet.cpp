@@ -1446,7 +1446,26 @@ void ListMirrTransactions(const CWalletTx& wtx, const string& strAddress, UniVal
 			entry.push_back(Pair("amount", ValueFromAmount(-s.amount)));
 			entry.push_back(Pair("vout", s.vout));
 			entry.push_back(Pair("fee", ValueFromAmount(-nFee)));
-			WalletTxToJSON(wtx, entry);
+
+			int confirms = wtx.GetDepthInMainChain(false);
+			bool fLocked = instantsend.IsLockedInstantSendTransaction(wtx.GetHash());
+			entry.push_back(Pair("confirmations", confirms));
+			entry.push_back(Pair("instantlock", fLocked));
+			if (wtx.IsCoinBase())
+				entry.push_back(Pair("generated", true));
+			if (confirms > 0)
+				entry.push_back(Pair("blockhash", wtx.hashBlock.GetHex()));
+				entry.push_back(Pair("blockindex", wtx.nIndex));
+				entry.push_back(Pair("blocktime", mapBlockIndex[wtx.hashBlock]->GetBlockTime()));
+			}
+			else {
+				entry.push_back(Pair("trusted", wtx.IsTrusted()));
+			}
+			uint256 hash = wtx.GetHash();
+			entry.push_back(Pair("txid", hash.GetHex()));
+			entry.push_back(Pair("time", wtx.GetTxTime()));
+			entry.push_back(Pair("timereceived", (int64_t)wtx.nTimeReceived));
+
 			entry.push_back(Pair("abandoned", wtx.isAbandoned()));
 			// only push if it's a sent to the mirr address
 			if (addr.ToString() == strAddress)
