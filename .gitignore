@@ -132,3 +132,17 @@ mogwai-cli
 mogwaid
 mogwai-qt
 make
+/.vs/mogwai_dev/v15/ipch/AutoPCH/1333188c5bffc6f2/NET.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/3160dc4a71395262/CHAINPARAMS.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/38fe1207085f8275/RAWTRANSACTION.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/540c490296d7bac/CLIENT.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/914ebc0a5f829129/MISC.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/d7004ccb0a621481/CHAINPARAMS.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/e947803cc22eb4f4/CHAINPARAMSBASE.ipch
+/.vs/mogwai_dev/v15/ipch/AutoPCH/f63128dc8787c9f5/RPCWALLET.ipch
+/.vs/mogwai_dev/v15/.suo
+/.vs/mogwai_dev/v15/Browse.VC.db
+/.vs/mogwai_dev/v15/Browse.VC.opendb
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
