@@ -93,10 +93,10 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     
     /* Theme selector */
     ui->theme->addItem(QString("MOGWAI-light"), QVariant("light"));
-    ui->theme->addItem(QString("MOGWAI-light-hires"), QVariant("light-hires"));
-    ui->theme->addItem(QString("MOGWAI-blue"), QVariant("drkblue"));
-    ui->theme->addItem(QString("MOGWAI-Crownium"), QVariant("crownium"));
-    ui->theme->addItem(QString("MOGWAI-traditional"), QVariant("trad"));
+    //ui->theme->addItem(QString("MOGWAI-light-hires"), QVariant("light-hires"));
+    //ui->theme->addItem(QString("MOGWAI-blue"), QVariant("drkblue"));
+    //ui->theme->addItem(QString("MOGWAI-Crownium"), QVariant("crownium"));
+    //ui->theme->addItem(QString("MOGWAI-traditional"), QVariant("trad"));
     
     /* Language selector */
     QDir translations(":translations");
