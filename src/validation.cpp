@@ -1270,21 +1270,16 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
 
 CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
 {
-	CAmount ret = blockValue / 5; // start at 20%
+	CAmount ret = blockValue / 2; // start at 50%
 
-	int nMNPIBlock = Params().GetConsensus().nMasternodePaymentsIncreaseBlock;
-	int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
-
-	if (nHeight > nMNPIBlock)                     ret += blockValue / 20; // 158000 - 25.0%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 1)) ret += blockValue / 20; // 175280 - 30.0%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 2)) ret += blockValue / 20; // 192560 - 35.0%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 3)) ret += blockValue / 40; // 209840 - 37.5%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 4)) ret += blockValue / 40; // 227120 - 40.0%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 5)) ret += blockValue / 40; // 244400 - 42.5%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 6)) ret += blockValue / 40; // 261680 - 45.0%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 7)) ret += blockValue / 40; // 278960 - 47.5%
-	if (nHeight > nMNPIBlock + (nMNPIPeriod * 9)) ret += blockValue / 40; // 313520 - 50.0%
-
+	// coffee event starting after block 10'000
+	//if (nHeight > 10000) {
+	//	int c0feIndex = GetEventIndexChain(consensusParams.nC0feSubsidyFactor, nHeight - 1, "c0fe");
+	//	if (c0feIndex > -1) {
+	//		ret = blockValue / (2 + (consensusParams.nC0feSubsidyFactor - c0feIndex));
+	//	}
+	//}
+	
 	return ret;
 }
 
@@ -1296,7 +1291,7 @@ int GetEventIndexChain(int backTrackIndex, int prevHeight, string eventString)
 		for (int i = 0; i < backTrackIndex; ++i) {
 			hexHash = chainActive[prevHeight - i]->GetBlockHash().GetHex();
 			if (hexHash.find(eventString) != std::string::npos) {
-				LogPrintf("previousBlockHash(%u) was a '%s' hash (%s)!\n", i, eventString, hexHash);
+				//LogPrintf("previousBlockHash(%u) was a '%s' hash (%s)!\n", i, eventString, hexHash);
 				feedIndex = i;
 				break;
 			}

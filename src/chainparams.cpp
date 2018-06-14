@@ -86,13 +86,17 @@ public:
 		strNetworkID = "main";
 
 		consensus.nPremineReward = 1400000;                       // Premine reward payed out on the first mined block.       
+		
 		consensus.nFeedSubsidyFactor = 8;                         // how mine blocks the feed will be applied.
+		consensus.nFaceSubsidyFactor = 1;
+		consensus.nCacaSubsidyFactor = 1;
+		consensus.nC0feSubsidyFactor = 6;
+		consensus.nBabaSubsidyFactor = 1;
 
 		consensus.nSubsidyHalvingInterval = 365 * 720;            // Number of blocks to pass, for the next halving to be applied
-		consensus.nSubsidyHalvingDeclinePerc = 28;                // Percent of decline on halving interval x % 
-		consensus.nMasternodePaymentsStartBlock = 7 * 720;        // starting after 7 days
-		consensus.nMasternodePaymentsIncreaseBlock = 14 * 720;    // starting after 14 days
-		consensus.nMasternodePaymentsIncreasePeriod = 30 * 720;   // period is 30 days
+		consensus.nSubsidyHalvingDeclinePerc = 14;                // Percent of decline on halving interval x % 
+		consensus.nMasternodePaymentsStartBlock = 0;        
+
 		consensus.nInstantSendKeepLock = 24;
 		consensus.nBudgetPaymentsStartBlock = 21 * 720;           // starting after 21 days
 		consensus.nBudgetPaymentsCycleBlocks = 30 * 720;          // cycle is 30 days
@@ -108,7 +112,7 @@ public:
 		consensus.nMajorityWindow = 1000;
 		// randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
 		consensus.BIP34Height = 1;
-		consensus.BIP34Hash = uint256S("0x0000014df85f11d116d74063085d0f9755d6d21d593e296649d3e29ada4d96ca");
+		consensus.BIP34Hash = uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77");
 		consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
 		consensus.nPowTargetTimespan = 10 * 60;                   // difficulty retarget 10 min
 		consensus.nPowTargetSpacing = 2 * 60;                     // block each 2 min --> 720 blocks a day
@@ -138,7 +142,7 @@ public:
 		consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
 		// By default assume that the signatures in ancestors of this block are valid.
-		consensus.defaultAssumeValid = uint256S("0x0000014df85f11d116d74063085d0f9755d6d21d593e296649d3e29ada4d96ca");
+		consensus.defaultAssumeValid = uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77");
 
 		/**
 		* The message start string is designed to be unlikely to occur in normal data.
@@ -157,14 +161,13 @@ public:
 
 		genesis = CreateGenesisBlock(1525968888, 587290, 0x1e0ffff0, 1, 1984 * COIN);
 		consensus.hashGenesisBlock = genesis.GetHash();
-		assert(consensus.hashGenesisBlock == uint256S("0x0000014df85f11d116d74063085d0f9755d6d21d593e296649d3e29ada4d96ca"));
-		assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
+		assert(consensus.hashGenesisBlock == uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77"));
+		assert(genesis.hashMerkleRoot == uint256S("0x9deff0967add859c9c5f1dd60bee7afd05fd5fcfb0d7f94f9067781a70d84ae2"));
 
 
 		vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed1.mogwaicoin.org"));
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed2.mogwaicoin.org"));
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed3.mogwaicoin.org"));
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed4.mogwaicoin.org"));
+		vSeeds.push_back(CDNSSeedData("mogwaicoin.net", "dns-seed1.mogwaicoin.net"));
+		vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed1.mogwaicoin.info"));
 
 		// Mogwai addresses start with 'M'
 		base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 50);
@@ -194,8 +197,8 @@ public:
 
 		checkpointData = (CCheckpointData) {
 			boost::assign::map_list_of
-			(0, uint256S("0x0000014df85f11d116d74063085d0f9755d6d21d593e296649d3e29ada4d96ca")),
-				1525968888,    // * UNIX timestamp of last checkpoint block
+			(0, uint256S("0x00000020b4f77da64c5ba4925b2176fdf50ed9d84165323f6871af4729248e77")),
+				1530000000,    // * UNIX timestamp of last checkpoint block
 				0,             // * total number of transactions between genesis and last checkpoint
 					           //   (the tx=... number in the SetBestChain debug.log lines)
 				5000           // * estimated number of transactions per day after checkpoint
@@ -228,12 +231,17 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nPremineReward = 10000;
+		
 		consensus.nFeedSubsidyFactor = 7;
+		consensus.nFaceSubsidyFactor = 1;
+		consensus.nCacaSubsidyFactor = 1;
+		consensus.nC0feSubsidyFactor = 4;
+		consensus.nBabaSubsidyFactor = 1;
+
         consensus.nSubsidyHalvingInterval = 10 * 777; // halving after 10 days
         consensus.nSubsidyHalvingDeclinePerc = 14;
         consensus.nMasternodePaymentsStartBlock = 0; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
-        consensus.nMasternodePaymentsIncreaseBlock = 1000; // masternode increase starts at this block
-        consensus.nMasternodePaymentsIncreasePeriod = 3 * 777; // every 3 days
+
         consensus.nInstantSendKeepLock = 6;
         consensus.nBudgetPaymentsStartBlock = 1 * 777; // after 1 day
         consensus.nBudgetPaymentsCycleBlocks = 77;
@@ -299,7 +307,6 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test1.mogwaicoin.info"));
-        //vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed-test2.mogwaicoin.info"));
 
         // Testnet Mogwai addresses start with 't'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,127);
@@ -348,12 +355,17 @@ public:
     CRegTestParams() {
         strNetworkID = "regtest";
         consensus.nPremineReward = 0;
+
 		consensus.nFeedSubsidyFactor = 7;
+		consensus.nFaceSubsidyFactor = 1;
+		consensus.nCacaSubsidyFactor = 1;
+		consensus.nC0feSubsidyFactor = 4;
+		consensus.nBabaSubsidyFactor = 1;
+
         consensus.nSubsidyHalvingInterval = 150;
         consensus.nSubsidyHalvingDeclinePerc = 14;
-        consensus.nMasternodePaymentsStartBlock = 240;
-        consensus.nMasternodePaymentsIncreaseBlock = 350;
-        consensus.nMasternodePaymentsIncreasePeriod = 10;
+        consensus.nMasternodePaymentsStartBlock = 0;
+
         consensus.nInstantSendKeepLock = 6;
         consensus.nBudgetPaymentsStartBlock = 1000;
         consensus.nBudgetPaymentsCycleBlocks = 50;

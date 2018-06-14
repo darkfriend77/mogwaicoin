@@ -44,11 +44,13 @@ struct Params {
     uint256 hashGenesisBlock;
     int nPremineReward; // mogwai specific
 	int nFeedSubsidyFactor; // mogwai specific
+	int nFaceSubsidyFactor; // mogwai specific
+	int nCacaSubsidyFactor; // mogwai specific
+	int nC0feSubsidyFactor; // mogwai specific
+	int nBabaSubsidyFactor; // mogwai specific
     int nSubsidyHalvingInterval;
     int nSubsidyHalvingDeclinePerc; // mogwai specific    
     int nMasternodePaymentsStartBlock;
-    int nMasternodePaymentsIncreaseBlock;
-    int nMasternodePaymentsIncreasePeriod; // in blocks
     int nInstantSendKeepLock; // in blocks
     int nBudgetPaymentsStartBlock;
     int nBudgetPaymentsCycleBlocks;
