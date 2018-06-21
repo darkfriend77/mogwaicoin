@@ -85,8 +85,8 @@ public:
 	CMainParams() {
 		strNetworkID = "main";
 
-		consensus.nPremineReward = 1400000;                       // Premine reward payed out on the first mined block.       
-		
+		consensus.nPremineReward = 1400000;                       // Premine reward payed out on the first mined block.
+
 		consensus.nFeedSubsidyFactor = 8;                         // how mine blocks the feed will be applied.
 		consensus.nFaceSubsidyFactor = 1;
 		consensus.nCacaSubsidyFactor = 1;
@@ -94,8 +94,8 @@ public:
 		consensus.nBabaSubsidyFactor = 1;
 
 		consensus.nSubsidyHalvingInterval = 365 * 720;            // Number of blocks to pass, for the next halving to be applied
-		consensus.nSubsidyHalvingDeclinePerc = 14;                // Percent of decline on halving interval x % 
-		consensus.nMasternodePaymentsStartBlock = 0;        
+		consensus.nSubsidyHalvingDeclinePerc = 14;                // Percent of decline on halving interval x %
+		consensus.nMasternodePaymentsStartBlock = 0;
 
 		consensus.nInstantSendKeepLock = 24;
 		consensus.nBudgetPaymentsStartBlock = 21 * 720;           // starting after 21 days
@@ -112,7 +112,7 @@ public:
 		consensus.nMajorityWindow = 1000;
 		// randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
 		consensus.BIP34Height = 1;
-		consensus.BIP34Hash = uint256S("0x000007beec40a105954950e0547db5b7eedaf0a3d795926e5ba32e848bb52369");
+		consensus.BIP34Hash = uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb");
 		consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
 		consensus.nPowTargetTimespan = 60 * 60;                   // difficulty retarget 10 min
 		consensus.nPowTargetSpacing = 2 * 60;                     // block each 2 min --> 720 blocks a day
@@ -142,7 +142,7 @@ public:
 		consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
 		// By default assume that the signatures in ancestors of this block are valid.
-		consensus.defaultAssumeValid = uint256S("0x000007beec40a105954950e0547db5b7eedaf0a3d795926e5ba32e848bb52369");
+		consensus.defaultAssumeValid = uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb");
 
 		/**
 		* The message start string is designed to be unlikely to occur in normal data.
@@ -156,18 +156,19 @@ public:
 		vAlertPubKey = ParseHex("043902217c3fd0621353480a2f6c80d93929549a064a21089d60c75da6a1eae50b986466f1913083b2b504c8362ae8c735d936d50cc0e52ed0c633dbeaf350be49");
 		nDefaultPort = 17777;
 		nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
-		nDelayGetHeadersTime = 50 * 24 * 60 * 60;
+		nDelayGetHeadersTime = 10 * 24 * 60 * 60;
 		nPruneAfterHeight = 100000;
 
-		genesis = CreateGenesisBlock(1529539199, 1120476, 0x1e0ffff0, 1, 1984 * COIN);
+		genesis = CreateGenesisBlock(1529610000, 809048, 0x1e0ffff0, 1, 1984 * COIN);
 		consensus.hashGenesisBlock = genesis.GetHash();
-		assert(consensus.hashGenesisBlock == uint256S("0x000007beec40a105954950e0547db5b7eedaf0a3d795926e5ba32e848bb52369"));
+		assert(consensus.hashGenesisBlock == uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb"));
 		assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
 
 
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed1.mogwaicoin.org"));
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.net", "dns-seed1.mogwaicoin.net"));
-		vSeeds.push_back(CDNSSeedData("mogwaicoin.info", "dns-seed1.mogwaicoin.info"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed1.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed2.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed3.mogwaicoin.org"));
+        vSeeds.push_back(CDNSSeedData("mogwaicoin.org", "dns-seed4.mogwaicoin.org"));
 
 		// Mogwai addresses start with 'M'
 		base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 50);
@@ -197,8 +198,8 @@ public:
 
 		checkpointData = (CCheckpointData) {
 			boost::assign::map_list_of
-			(0, uint256S("0x000007beec40a105954950e0547db5b7eedaf0a3d795926e5ba32e848bb52369")),
-				1529539199,    // * UNIX timestamp of last checkpoint block
+			(0, uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb")),
+				1529610000,    // * UNIX timestamp of last checkpoint block
 				0,             // * total number of transactions between genesis and last checkpoint
 					           //   (the tx=... number in the SetBestChain debug.log lines)
 				5000           // * estimated number of transactions per day after checkpoint
@@ -210,8 +211,8 @@ static CMainParams mainParams;
 /**
  * Testnet (v3)
  *
- * python genesis.py 
- *   -a neoscrypt 
+ * python genesis.py
+ *   -a neoscrypt
  *   -z "Bye-bye, Woof Woof. We are mogwais. Expect us on June 26 (2018)!"
  *   -p "047d476d8fec5e400a30657039003432293111167dc8357d1c66bcc64b7903f8eb9e4332cc073bda542e98a763d59e56e1c65563d0401a88a532d2eebed29da1b3"
  *   -t 1520451777
@@ -231,7 +232,7 @@ public:
     CTestNetParams() {
         strNetworkID = "test";
         consensus.nPremineReward = 10000;
-		
+
 		consensus.nFeedSubsidyFactor = 7;
 		consensus.nFaceSubsidyFactor = 1;
 		consensus.nCacaSubsidyFactor = 1;
