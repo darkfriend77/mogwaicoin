@@ -1,6 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Mogwai Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The Mogwai Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -112,7 +113,7 @@ public:
 		consensus.nMajorityWindow = 1000;
 		// randall: BIP34Height and BIP34Hash are just the historical height and block hash at which BIP34 activated.
 		consensus.BIP34Height = 1;
-		consensus.BIP34Hash = uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb");
+		consensus.BIP34Hash = uint256S("0x000006ba48cbdecd71bc411a3e0b609f1acab9806fc652040f247c8b86831d06");
 		consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
 		consensus.nPowTargetTimespan = 60 * 60;                   // difficulty retarget 10 min
 		consensus.nPowTargetSpacing = 2 * 60;                     // block each 2 min --> 720 blocks a day
@@ -142,7 +143,7 @@ public:
 		consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
 
 		// By default assume that the signatures in ancestors of this block are valid.
-		consensus.defaultAssumeValid = uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb");
+		consensus.defaultAssumeValid = uint256S("0x000006ba48cbdecd71bc411a3e0b609f1acab9806fc652040f247c8b86831d06");
 
 		/**
 		* The message start string is designed to be unlikely to occur in normal data.
@@ -159,9 +160,9 @@ public:
 		nDelayGetHeadersTime = 10 * 24 * 60 * 60;
 		nPruneAfterHeight = 100000;
 
-		genesis = CreateGenesisBlock(1529610000, 809048, 0x1e0ffff0, 1, 1984 * COIN);
+		genesis = CreateGenesisBlock(1529870000, 657061, 0x1e0ffff0, 1, 1984 * COIN);
 		consensus.hashGenesisBlock = genesis.GetHash();
-		assert(consensus.hashGenesisBlock == uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb"));
+		assert(consensus.hashGenesisBlock == uint256S("0x000006ba48cbdecd71bc411a3e0b609f1acab9806fc652040f247c8b86831d06"));
 		assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
 
 
@@ -198,11 +199,11 @@ public:
 
 		checkpointData = (CCheckpointData) {
 			boost::assign::map_list_of
-			(0, uint256S("0x000003a475cb613e277c3c5baf862875636636ff32bd283e415c8f3ee5e99cfb")),
-				1529610000,    // * UNIX timestamp of last checkpoint block
-				0,             // * total number of transactions between genesis and last checkpoint
-					           //   (the tx=... number in the SetBestChain debug.log lines)
-				5000           // * estimated number of transactions per day after checkpoint
+                (0, uint256S("0x000006ba48cbdecd71bc411a3e0b609f1acab9806fc652040f247c8b86831d06")),
+        1529870000,    // * UNIX timestamp of last checkpoint block
+				 0,    // * total number of transactions between genesis and last checkpoint
+				       //   (the tx=... number in the SetBestChain debug.log lines)
+			  5000     // * estimated number of transactions per day after checkpoint
 		};
 	}
 };

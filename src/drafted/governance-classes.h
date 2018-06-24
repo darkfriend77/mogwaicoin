@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017 The Mogwai Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The Mogwai Core developers
 
 /*
  * FIELDS AND CLASSIFICATION
