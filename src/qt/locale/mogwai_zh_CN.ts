@@ -3650,11 +3650,15 @@ https://www.transifex.com/projects/p/mogwai/</translation>
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
-        <translation>版权(C) 2009-%i The Bitcoin Core Developers</translation>
+        <translation>版权(C) 2009-%i 比特币核心开发团队</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Mogwai Core Developers</source>
-        <translation>版权 (C) 2014-%i The Mogwai Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core Developers</source>
+        <translation>版权 (C) 2014-%i 达世币核心开发团队</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2017-%i The Mogwai Core Developers</source>
+        <translation>版权 (C) 2017-%i 魔怪币核心开发团队</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

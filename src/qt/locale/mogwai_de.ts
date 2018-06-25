@@ -4148,8 +4148,12 @@ Dies kann passieren, wenn einige Mogwai aus ihrer Wallet bereits ausgegeben wurd
         <translation>Copyright (C) 2009-%i Die "Bitcoin Core"-Entwickler</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Mogwai Core Developers</source>
-        <translation>Copyright (C) 2014-%i Die "Mogwai Core"-Entwickler</translation>
+        <source>Copyright (C) 2014-%i The Dash Core Developers</source>
+        <translation>Copyright (C) 2014-%i Die "Dash Core"-Entwickler</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2017-%i The Mogwai Core Developers</source>
+        <translation>Copyright (C) 2017-%i Die "Mogwai Core"-Entwickler</translation>
     </message>
     <message>
         <source>Enable the client to act as a masternode (0-1, default: %u)</source>

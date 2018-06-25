@@ -4129,8 +4129,12 @@ https://www.transifex.com/projects/p/mogwai/</translation>
         <translation>Prawo autorskie (c) 2009-%i deweloperzy Bitcoin</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Mogwai Core Developers</source>
-        <translation>Prawa autorskie (C) 2014-%i deweloperzy Mogwai</translation>
+        <source>Copyright (C) 2014-%i The Dash Core Developers</source>
+        <translation>Prawa autorskie (C) 2014-%i deweloperzy Dash</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2017-%i The Mogwai Core Developers</source>
+        <translation>Prawa autorskie (C) 2017-%i deweloperzy Mogwai</translation>
     </message>
     <message>
         <source>Enable the client to act as a masternode (0-1, default: %u)</source>

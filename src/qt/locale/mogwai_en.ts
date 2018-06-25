@@ -5354,8 +5354,13 @@ https://www.transifex.com/projects/p/mogwai/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Copyright (C) 2014-%i The Mogwai Core Developers</source>
-        <translation>Copyright (C) 2014-%i The Mogwai Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core Developers</source>
+        <translation>Copyright (C) 2014-%i The Dash Core Developers</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copyright (C) 2017-%i The Mogwai Core Developers</source>
+        <translation>Copyright (C) 2017-%i The Mogwai Core Developers</translation>
     </message>
     <message>
         <location line="+14"/>

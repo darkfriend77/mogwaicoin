@@ -3834,8 +3834,12 @@ https://www.transifex.com/projects/p/mogwai/</translation>
         <translation>Autorské práva (C) 2009-%i Vývojári Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Mogwai Core Developers</source>
-        <translation>Autorské práva (C) 2014-%i Vývojári jadra Mogwai</translation>
+        <source>Copyright (C) 2014-%i The Dash Core Developers</source>
+        <translation>Autorské práva (C) 2014-%i Vývojári jadra Dash</translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2017-%i The Mogwai Core Developers</source>
+        <translation>Autorské práva (C) 2017-%i Vývojári jadra Mogwai</translation>
     </message>
     <message>
         <source>Enable the client to act as a masternode (0-1, default: %u)</source>
