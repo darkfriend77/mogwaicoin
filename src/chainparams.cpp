@@ -120,7 +120,7 @@ public:
 		consensus.fPowAllowMinDifficultyBlocks = false;
 		consensus.fPowNoRetargeting = false;
 		consensus.nPowKGWHeight = 15200;
-		consensus.nPowDGWHeight = 17000;
+		consensus.nPowDGWHeight = 22500;
 		consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
 		consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
 		consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -234,10 +234,10 @@ public:
         strNetworkID = "test";
         consensus.nPremineReward = 10000;
 
-		consensus.nFeedSubsidyFactor = 7;
+		consensus.nFeedSubsidyFactor = 8;                         // how mine blocks the feed will be applied.
 		consensus.nFaceSubsidyFactor = 1;
 		consensus.nCacaSubsidyFactor = 1;
-		consensus.nC0feSubsidyFactor = 4;
+		consensus.nC0feSubsidyFactor = 6;
 		consensus.nBabaSubsidyFactor = 1;
 
         consensus.nSubsidyHalvingInterval = 10 * 777; // halving after 10 days
@@ -258,14 +258,14 @@ public:
         consensus.nMajorityRejectBlockOutdated = 75;
         consensus.nMajorityWindow = 100;
         consensus.BIP34Height = 1;
-        consensus.BIP34Hash = uint256S("0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5");
+        consensus.BIP34Hash = uint256S("0x000008bdc1b40e9842b7dd84cd59ea24a4920a5e10d631f1fe0fe50e82250197");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nPowTargetTimespan = 10 * 60; // Mogwai: every 10 min
-        consensus.nPowTargetSpacing = 1.85 * 60; // Mogwai: 111 seconds --> 777 blocks a day
+        consensus.nPowTargetSpacing = 2 * 60;                     // block each 2 min --> 720 blocks a day
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
-        consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
-        consensus.nPowDGWHeight = 4001;
+        consensus.nPowKGWHeight = 0; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
+        consensus.nPowDGWHeight = 10000;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
 
@@ -289,7 +289,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000"); // TODO: add chainwork here
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5"); // TODO: add default valid block
+        consensus.defaultAssumeValid = uint256S("0x000008bdc1b40e9842b7dd84cd59ea24a4920a5e10d631f1fe0fe50e82250197"); // TODO: add default valid block
 
         pchMessageStart[0] = 0x92;
         pchMessageStart[1] = 0x70;
@@ -301,9 +301,9 @@ public:
         nDelayGetHeadersTime = 100 * 24 * 60 * 60; // Randall: max time passed since last header ...
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1520451777, 202278, 0x1e0ffff0, 1, 1984 * COIN);
+        genesis = CreateGenesisBlock(1532424777, 1062119, 0x1e0ffff0, 1, 1984 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000008bdc1b40e9842b7dd84cd59ea24a4920a5e10d631f1fe0fe50e82250197"));
         assert(genesis.hashMerkleRoot == uint256S("0x9d98b85b24d6683c4df84c74598113f2d602c02fdf693661e76cd2d801ded6ce"));
 
         vFixedSeeds.clear();
@@ -338,8 +338,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x000007345a61ed0f4a7d8a491ffc5b09e6599af85d188175c041e2ca6a3006e5")), // TODO: add checkpoints
-      1520451777,    // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("0x000008bdc1b40e9842b7dd84cd59ea24a4920a5e10d631f1fe0fe50e82250197")), // TODO: add checkpoints
+      1532424777,    // * UNIX timestamp of last checkpoint block
                0,    // * total number of transactions between genesis and last checkpoint
                      //   (the tx=... number in the SetBestChain debug.log lines)
              500     // * estimated number of transactions per day after checkpoint
