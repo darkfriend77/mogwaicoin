@@ -171,8 +171,12 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
 
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
+    // RegtTest Network allow minimum diff if set true
+    if (ChainNameFromCommandLine() == CBaseChainParams::REGTEST && params.fPowAllowMinDifficultyBlocks) {
+        return UintToArith256(params.powLimit).GetCompact();
+    }
     // Most recent algo first
-    if (pindexLast->nHeight + 1 >= params.nPowDGWHeight) {
+    else if (pindexLast->nHeight + 1 >= params.nPowDGWHeight) {
         return DarkGravityWave(pindexLast, params);
     }
     else if (pindexLast->nHeight + 1 >= params.nPowKGWHeight) {

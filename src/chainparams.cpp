@@ -376,11 +376,11 @@ public:
         consensus.BIP34Hash = uint256S("0x00000e927f57650792f29e62bccde332a814e20de07a7e3ac1402e0a886b2200");
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Mogwai: 1 day
-        consensus.nPowTargetSpacing = 5;        // block each 2 min --> 720 blocks a day
+        consensus.nPowTargetSpacing = 2 * 60;        // block each 2 min --> 720 blocks a day
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
-        consensus.nPowKGWHeight = 15200;
-        consensus.nPowDGWHeight = 22500;
+        consensus.nPowKGWHeight = 0;                // same as mainnet
+        consensus.nPowDGWHeight = 0;                // same as mainnet
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144;       // Faster than normal for regtest (144 instead of 2016)
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
